@@ -3,7 +3,9 @@ import styled from "styled-components";
 function Header() {
   return (
     <Nav>
-      <Logo src="/images/logo.svg" />
+      <LogoWrapper>
+        <Logo src="/images/logo.svg" />
+      </LogoWrapper>
 
       <NavMenu>
         <a>
@@ -33,7 +35,7 @@ function Header() {
 }
 
 const Nav = styled.nav`
-  height: 50px;
+  height: 70px;
   background-color: white;
   display: flex;
   align-items: center;
@@ -43,8 +45,21 @@ const Nav = styled.nav`
   box-shadow: rgb(0 0 0 /69%) 0px 4px 10px -10px,
     rgb(0 0 0 /73%) 0px 6px 8px -10px;
 `;
+
+const LogoWrapper = styled.div`
+  max-width: 200px;
+  width: 70px;
+  height: 70px;
+`;
 const Logo = styled.img`
-  width: 80px;
+  object-fit: cover;
+  width: 100%;
+  height: 100%;
+
+  @media (max-width: 768px) {
+    width: 90%;
+    height: 90%;
+  }
 `;
 const LoginContainer = styled.div`
   display: flex;
