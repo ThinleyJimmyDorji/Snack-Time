@@ -39,8 +39,11 @@ const Nav = styled.nav`
   background-color: white;
   display: flex;
   align-items: center;
+  position: fixed;
+  z-index: 1;
   padding: 0 25px;
   overflow-x: hidden;
+  width: 100%;
   /* border-bottom: 1px solid rgba(0, 0, 0, 0.1); */
   box-shadow: rgb(0 0 0 /69%) 0px 4px 10px -10px,
     rgb(0 0 0 /73%) 0px 6px 8px -10px;

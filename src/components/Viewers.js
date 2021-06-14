@@ -24,7 +24,7 @@ function Viewers() {
 
 const Container = styled.div`
   margin-top: 30px;
-  padding: 30px 0px 26px;
+  padding: 90px 0px 26px;
   display: grid;
   grid-gap: 25px; //add space between grid items
   grid-template-columns: repeat(

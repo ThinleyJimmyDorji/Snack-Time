@@ -2,155 +2,174 @@ import React from "react";
 import styled from "styled-components";
 import "../index.css";
 import { BsHeartFill, BsStar, BsStarFill, BsStarHalf } from "react-icons/bs";
+import { IconContext } from "react-icons";
 
 function Snacks() {
   return (
-    <Container>
-      <h4>All Items</h4>
-      <Content>
-        <Wrap>
-          <img src="images/steamed-noodles.jpg" alt="" />
-          <SnackName>
-            <h4>name</h4>
-          </SnackName>
-          <Operations>
-            <AddButton>Select</AddButton>
-            <LikeButton>
-              <BsStarFill />
-              <BsStarFill />
-              <BsStarFill />
-            </LikeButton>
-            <span>4.2</span>
-          </Operations>
-        </Wrap>
-        <Wrap>
-          <img src="images/steamed-noodles.jpg" alt="" />
-          <SnackName>
-            <h4>name</h4>
-          </SnackName>
-          <Operations>
-            <AddButton>Select</AddButton>
-            <LikeButton>
-              <BsStarFill />
-              <BsStarFill />
-              <BsStarFill />
-            </LikeButton>
-            <span>4.2</span>
-          </Operations>
-        </Wrap>
-        <Wrap>
-          <img src="images/steamed-noodles.jpg" alt="" />
-          <SnackName>
-            <h4>name</h4>
-          </SnackName>
-          <Operations>
-            <AddButton>Select</AddButton>
-            <LikeButton>
-              <BsStarFill />
-              <BsStarFill />
-              <BsStarFill />
-            </LikeButton>
-            <span>4.2</span>
-          </Operations>
-        </Wrap>
-        <Wrap>
-          <img src="images/steamed-noodles.jpg" alt="" />
-          <SnackName>
-            <h4>name</h4>
-          </SnackName>
-          <Operations>
-            <AddButton>Select</AddButton>
-            <LikeButton>
-              <BsStarFill />
-              <BsStarFill />
-              <BsStarFill />
-            </LikeButton>
-            <span>4.2</span>
-          </Operations>
-        </Wrap>
-        <Wrap>
-          <img src="images/steamed-noodles.jpg" alt="" />
-          <SnackName>
-            <h4>name</h4>
-          </SnackName>
-          <Operations>
-            <AddButton>Select</AddButton>
-            <LikeButton>
-              <BsStarFill />
-              <BsStarFill />
-              <BsStarFill />
-            </LikeButton>
-            <span>4.2</span>
-          </Operations>
-        </Wrap>
-        <Wrap>
-          <img src="images/steamed-noodles.jpg" alt="" />
-          <SnackName>
-            <h4>name</h4>
-          </SnackName>
-          <Operations>
-            <AddButton>Select</AddButton>
-            <LikeButton>
-              <BsStarFill />
-              <BsStarFill />
-              <BsStarFill />
-            </LikeButton>
-            <span>4.2</span>
-          </Operations>
-        </Wrap>
-        <Wrap>
-          <img src="images/steamed-noodles.jpg" alt="" />
-          <SnackName>
-            <h4>name</h4>
-          </SnackName>
-          <Operations>
-            <AddButton>Select</AddButton>
-            <LikeButton>
-              <BsStarFill />
-              <BsStarFill />
-              <BsStarFill />
-            </LikeButton>
-            <span>4.2</span>
-          </Operations>
-        </Wrap>
-        <Wrap>
-          <img src="images/steamed-noodles.jpg" alt="" />
-          <SnackName>
-            <h4>name</h4>
-          </SnackName>
-          <Operations>
-            <AddButton>Select</AddButton>
-            <LikeButton>
-              <BsStarFill />
-              <BsStarFill />
-              <BsStarFill />
-            </LikeButton>
-            <span>4.2</span>
-          </Operations>
-        </Wrap>
-      </Content>
-    </Container>
+    <IconContext.Provider value={{ color: "orange", size: "1em" }}>
+      <Container>
+        <SnackHeading>All Items</SnackHeading>
+        <Content>
+          <Wrap>
+            <img src="images/steamed-noodles.jpg" alt="" />
+            <SnackName>
+              <h4>name</h4>
+            </SnackName>
+            <Operations>
+              <AddButton>
+                <span>Select</span>
+              </AddButton>
+              <LikeButton>
+                <BsStarFill />
+                <BsStarFill />
+                <BsStarFill />
+              </LikeButton>
+              <span>4.2</span>
+            </Operations>
+          </Wrap>
+          <Wrap>
+            <img src="images/steamed-noodles.jpg" alt="" />
+            <SnackName>
+              <h4>name</h4>
+            </SnackName>
+            <Operations>
+              <AddButton>
+                <span>Select</span>
+              </AddButton>
+              <LikeButton>
+                <BsStarFill />
+                <BsStarFill />
+                <BsStarFill />
+              </LikeButton>
+              <span>4.2</span>
+            </Operations>
+          </Wrap>
+          <Wrap>
+            <img src="images/steamed-noodles.jpg" alt="" />
+            <SnackName>
+              <h4>name</h4>
+            </SnackName>
+            <Operations>
+              <AddButton>
+                <span>Select</span>
+              </AddButton>
+              <LikeButton>
+                <BsStarFill />
+                <BsStarFill />
+                <BsStarFill />
+              </LikeButton>
+              <span>4.2</span>
+            </Operations>
+          </Wrap>
+          <Wrap>
+            <img src="images/steamed-noodles.jpg" alt="" />
+            <SnackName>
+              <h4>name</h4>
+            </SnackName>
+            <Operations>
+              <AddButton>
+                <span>Select</span>
+              </AddButton>
+              <LikeButton>
+                <BsStarFill />
+                <BsStarFill />
+                <BsStarFill />
+              </LikeButton>
+              <span>4.2</span>
+            </Operations>
+          </Wrap>
+          <Wrap>
+            <img src="images/steamed-noodles.jpg" alt="" />
+            <SnackName>
+              <h4>name</h4>
+            </SnackName>
+            <Operations>
+              <AddButton>
+                <span>Select</span>
+              </AddButton>
+              <LikeButton>
+                <BsStarFill />
+                <BsStarFill />
+                <BsStarFill />
+              </LikeButton>
+              <span>4.2</span>
+            </Operations>
+          </Wrap>
+          <Wrap>
+            <img src="images/steamed-noodles.jpg" alt="" />
+            <SnackName>
+              <h4>name</h4>
+            </SnackName>
+            <Operations>
+              <AddButton>
+                <span>Select</span>
+              </AddButton>
+              <LikeButton>
+                <BsStarFill />
+                <BsStarFill />
+                <BsStarFill />
+              </LikeButton>
+              <span>4.2</span>
+            </Operations>
+          </Wrap>
+          <Wrap>
+            <img src="images/steamed-noodles.jpg" alt="" />
+            <SnackName>
+              <h4>name</h4>
+            </SnackName>
+            <Operations>
+              <AddButton>
+                <span>Select</span>
+              </AddButton>
+              <LikeButton>
+                <BsStarFill />
+                <BsStarFill />
+                <BsStarFill />
+              </LikeButton>
+              <span>4.2</span>
+            </Operations>
+          </Wrap>
+        </Content>
+      </Container>
+    </IconContext.Provider>
   );
 }
 
 const Container = styled.div`
   padding: 30px 0px 26px;
+  margin-left: 0px;
+  margin-top: 20px;
+  width: 100%;
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 `;
-
+const SnackHeading = styled.div`
+  width: 40%;
+  background-color: #ecf4f9;
+  text-align: center;
+  padding: 8px 16px;
+  border-radius: 4px;
+  border: 1px solid #2a98b9;
+  font-size: 20px;
+  text-transform: uppercase;
+  margin-bottom: 20px;
+`;
 const Content = styled.div`
   margin-left: 0;
   display: grid;
   grid-gap: 30px;
   grid-template-columns: repeat(4, minmax(0, 1fr));
-  overflow: hidden;
+  /* overflow: hidden; */
 `;
-const SnackItem = styled.div`
-  display: flex;
-  align-items: center;
-  flex-direction: column;
-  margin-left: 8px;
-  overflow: hidden;
-`;
+// const SnackItem = styled.div`
+//   display: flex;
+//   align-items: center;
+//   flex-direction: column;
+//   margin-left: 8px;
+//   overflow: hidden;
+// `;
 
 const Wrap = styled.div`
   border: 3px solid rgba(249, 249, 249, 0.1);
@@ -197,15 +216,30 @@ const Operations = styled.div`
   }
 `;
 const AddButton = styled.div`
-  background-color: #06f;
   margin: 4px 8px;
   color: white;
   padding: 8px 16px;
+  background-color: rgba(112, 76, 182, 0.1);
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   border-radius: 4px;
-  transition: all 250ms;
-  &:hover {
-    background-color: #4895ef;
-    cursor: pointer;
+  cursor: pointer;
+  transition: all 0.15s;
+  span {
+    font-size: 12px;
+    color: rgb(112, 76, 182);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+  &:hover,
+  &:focus {
+    border: 1px solid rgba(112, 76, 182, 0.5);
+  }
+
+  &:active {
+    background-color: rgba(112, 76, 182, 0.2);
   }
   @media (max-width: 768px) {
     padding: 2px 8px;

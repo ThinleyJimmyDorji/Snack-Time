@@ -15,10 +15,10 @@ function Home() {
 const Container = styled.div`
   min-height: calc(100vh - 70px);
   padding: 0 calc(3.5vw + 5px);
-  position: relative;
+  /* position: relative; */
   overflow-x: hidden;
 
-  &:before {
+  /* &:before {
     background: #f2f2f2 center center / cover no-repeat fixed;
     content: "";
     top: 0;
@@ -27,6 +27,6 @@ const Container = styled.div`
     bottom: 0;
     z-index: -1; // send the background of all the content
     position: absolute; // fix the position of the background image
-  }
+  } */
 `;
 export default Home;
