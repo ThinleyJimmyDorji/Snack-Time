@@ -6,9 +6,9 @@ import { IconContext } from "react-icons";
 
 function Snacks() {
   return (
-    <IconContext.Provider value={{ color: "orange", size: "1em" }}>
+    <IconContext.Provider value={{ color: "#2a98b9", size: "1em" }}>
       <Container>
-        <SnackHeading>All Items</SnackHeading>
+        <SnackHeading>Menu</SnackHeading>
         <Content>
           <Wrap>
             <img src="images/steamed-noodles.jpg" alt="" />

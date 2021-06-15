@@ -5,7 +5,7 @@ import { IconContext } from "react-icons";
 function Details() {
   return (
     <IconContext.Provider
-      value={{ color: "orange", margin: "2em", size: "2em" }}
+      value={{ color: "#2a98b9", margin: "2em", size: "1.5em" }}
     >
       <Container>
         <Content>
