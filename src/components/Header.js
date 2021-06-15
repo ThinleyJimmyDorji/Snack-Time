@@ -1,38 +1,77 @@
 import React, { useEffect } from "react";
 import styled from "styled-components";
+import { AiFillFire } from "react-icons/ai";
+import { ImSearch } from "react-icons/im";
+import { MdLocalOffer } from "react-icons/md";
+import { IconContext } from "react-icons";
 function Header() {
   return (
-    <Nav>
-      <LogoWrapper>
-        <Logo src="/images/logo.svg" />
-      </LogoWrapper>
+    <IconContext.Provider value={{ color: "#3c096c", size: "1.5em" }}>
+      <Nav>
+        <LogoWrapper>
+          <Logo src="/images/logo.svg" />
+        </LogoWrapper>
 
-      <NavMenu>
-        <a>
-          <img src="/images/home-icon.svg" alt="" />
-          <span>Sale</span>
-        </a>
-        <a>
-          <img src="/images/search-icon.svg" alt="" />
-          <span>Search</span>
-        </a>
-        <a>
-          <img src="/images/watchlist-icon.svg" alt="" />
-          <span>Offers</span>
-        </a>
-        <a>
-          <img src="/images/original-icon.svg" alt="" />
-          <span>Originals</span>
-        </a>
-      </NavMenu>
-      <LoginContainer>
-        <Login>Login</Login>
-      </LoginContainer>
+        <NavMenu>
+          <a>
+            <AiFillFire />
+            <span>Sale</span>
+          </a>
+          <a>
+            <ImSearch />
+            <span>Search</span>
+          </a>
+          <a>
+            <MdLocalOffer />
+            <span>Offers</span>
+          </a>
+        </NavMenu>
+        <PostContainer>
+          <span>Add a Snack</span>
+        </PostContainer>
+        <Divider></Divider>
 
-      <UserImage src="/images/user.svg" />
-    </Nav>
+        <LoginContainer>
+          <span>Login</span>
+        </LoginContainer>
+
+        <UserImage src="/images/user.svg" />
+      </Nav>
+    </IconContext.Provider>
   );
 }
+const Divider = styled.div`
+  width: 1px;
+  height: 30px;
+  margin-right: 0px 0px;
+
+  border-right: 1px solid rgba(0, 0, 0, 0.2);
+`;
+const PostContainer = styled.div`
+  background-color: rgba(112, 76, 182, 0.1);
+  width: 10%;
+  height: 35px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.15s;
+  margin: 0px 10px;
+  span {
+    font-size: 12px;
+    color: rgb(112, 76, 182);
+    letter-spacing: 1px;
+  }
+  &:hover,
+  &:focus {
+    border: 1px solid rgba(112, 76, 182, 0.5);
+  }
+
+  &:active {
+    background-color: rgba(112, 76, 182, 0.2);
+  }
+`;
 
 const Nav = styled.nav`
   height: 70px;
@@ -64,41 +103,31 @@ const Logo = styled.img`
     height: 90%;
   }
 `;
-const LoginContainer = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: flex-end;
-  margin-right: 8px;
-  height: 30px;
+const LoginContainer = styled(PostContainer)`
+  width: 60px;
+  &:hover,
+  &:focus {
+    border-color: transparent;
+    background-color: rgb(112, 76, 182);
+    span {
+      color: white;
+    }
+  }
+
+  &:active {
+    background-color: rgba(112, 76, 182, 0.2);
+  }
   /* flex: 1; */
 `;
-const Login = styled.div`
-  border: 1px solid rgba(0, 0, 0, 0.2);
-  align-items: center;
-  justify-content: center;
-  margin-left: 16px;
-  margin-right: 16px;
-  padding: 8px 8px;
-  border-radius: 4px;
-  letter-spacing: 1.5px;
-  cursor: pointer;
-  transition: all 250ms;
-  font-weight: 600;
 
-  &:hover {
-    background-color: #06f;
-    color: white;
-    border-color: transparent;
-  }
-`;
 const NavMenu = styled.div`
   display: flex;
   flex: 1; // give priority to the nav menu, expand as far as possible
   margin-left: 12px;
   cursor: pointer; // give it a hand pointer on hover-over
   align-items: center;
-  padding: 0px 16px;
-  border-right: 1px solid rgba(0, 0, 0, 0.2);
+  padding: 8px 8px;
+  margin-right: 8px;
 
   a {
     display: flex;
@@ -108,10 +137,12 @@ const NavMenu = styled.div`
       height: 20px;
     }
     span {
-      font-size: 13px;
+      font-size: 16px;
+      font-weight: 600;
       letter-spacing: 1.42px;
       font-weight: 500;
       position: relative;
+      color: rgb(112, 76, 182);
 
       &:after {
         // make a dark bottom line show up (creates a small div)
