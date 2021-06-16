@@ -6,139 +6,29 @@ import { IconContext } from "react-icons";
 
 function Snacks() {
   return (
-    <IconContext.Provider value={{ color: "#2a98b9", size: "1em" }}>
-      <Container>
-        <SnackHeading>Menu</SnackHeading>
-        <Content>
-          <Wrap>
-            <img src="images/steamed-noodles.jpg" alt="" />
-            <SnackName>
-              <h4>name</h4>
-            </SnackName>
-            <Operations>
-              <AddButton>
-                <span>Select</span>
-              </AddButton>
-              <LikeButton>
-                <BsStarFill />
-                <BsStarFill />
-                <BsStarFill />
-              </LikeButton>
-              <span>4.2</span>
-            </Operations>
-          </Wrap>
-          <Wrap>
-            <img src="images/steamed-noodles.jpg" alt="" />
-            <SnackName>
-              <h4>name</h4>
-            </SnackName>
-            <Operations>
-              <AddButton>
-                <span>Select</span>
-              </AddButton>
-              <LikeButton>
-                <BsStarFill />
-                <BsStarFill />
-                <BsStarFill />
-              </LikeButton>
-              <span>4.2</span>
-            </Operations>
-          </Wrap>
-          <Wrap>
-            <img src="images/steamed-noodles.jpg" alt="" />
-            <SnackName>
-              <h4>name</h4>
-            </SnackName>
-            <Operations>
-              <AddButton>
-                <span>Select</span>
-              </AddButton>
-              <LikeButton>
-                <BsStarFill />
-                <BsStarFill />
-                <BsStarFill />
-              </LikeButton>
-              <span>4.2</span>
-            </Operations>
-          </Wrap>
-          <Wrap>
-            <img src="images/steamed-noodles.jpg" alt="" />
-            <SnackName>
-              <h4>name</h4>
-            </SnackName>
-            <Operations>
-              <AddButton>
-                <span>Select</span>
-              </AddButton>
-              <LikeButton>
-                <BsStarFill />
-                <BsStarFill />
-                <BsStarFill />
-              </LikeButton>
-              <span>4.2</span>
-            </Operations>
-          </Wrap>
-          <Wrap>
-            <img src="images/steamed-noodles.jpg" alt="" />
-            <SnackName>
-              <h4>name</h4>
-            </SnackName>
-            <Operations>
-              <AddButton>
-                <span>Select</span>
-              </AddButton>
-              <LikeButton>
-                <BsStarFill />
-                <BsStarFill />
-                <BsStarFill />
-              </LikeButton>
-              <span>4.2</span>
-            </Operations>
-          </Wrap>
-          <Wrap>
-            <img src="images/steamed-noodles.jpg" alt="" />
-            <SnackName>
-              <h4>name</h4>
-            </SnackName>
-            <Operations>
-              <AddButton>
-                <span>Select</span>
-              </AddButton>
-              <LikeButton>
-                <BsStarFill />
-                <BsStarFill />
-                <BsStarFill />
-              </LikeButton>
-              <span>4.2</span>
-            </Operations>
-          </Wrap>
-          <Wrap>
-            <img src="images/steamed-noodles.jpg" alt="" />
-            <SnackName>
-              <h4>name</h4>
-            </SnackName>
-            <Operations>
-              <AddButton>
-                <span>Select</span>
-              </AddButton>
-              <LikeButton>
-                <BsStarFill />
-                <BsStarFill />
-                <BsStarFill />
-              </LikeButton>
-              <span>4.2</span>
-            </Operations>
-          </Wrap>
-        </Content>
-      </Container>
-    </IconContext.Provider>
+    <Container>
+      <SnackHeading>Menu</SnackHeading>
+      <Content>
+        <Wrap>
+          <img src="images/steamed-noodles.jpg" alt="" />
+          <ItemName>Name</ItemName>
+          <ItemPrice>Nu 55.0</ItemPrice>
+
+          <Operations>
+            <AddButton>
+              <span>Select</span>
+            </AddButton>
+          </Operations>
+        </Wrap>
+      </Content>
+    </Container>
   );
 }
 
 const Container = styled.div`
-  padding: 30px 0px 26px;
+  padding: 0px 0px 26px;
   margin-left: 0px;
-  margin-top: 20px;
+  margin-top: 0px;
   width: 100%;
   align-items: center;
   display: flex;
@@ -160,16 +50,10 @@ const Content = styled.div`
   margin-left: 0;
   display: grid;
   grid-gap: 30px;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
+  max-width: 60%;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
   /* overflow: hidden; */
 `;
-// const SnackItem = styled.div`
-//   display: flex;
-//   align-items: center;
-//   flex-direction: column;
-//   margin-left: 8px;
-//   overflow: hidden;
-// `;
 
 const Wrap = styled.div`
   border: 3px solid rgba(249, 249, 249, 0.1);
@@ -177,6 +61,8 @@ const Wrap = styled.div`
   box-shadow: rgb(0 0 0 /69%) 0px 26px 30px -10px,
     rgb(0 0 0 /73%) 0px 16px 10px -10px;
   overflow: hidden;
+  align-items: center;
+  justify-content: center;
   display: flex;
   flex-direction: column;
   margin-left: 8px;
@@ -199,6 +85,7 @@ const Wrap = styled.div`
     width: 100%;
     height: 100%;
     object-fit: cover; // fit the object as much as possible inside the div
+    border-radius: 4px;
     &:hover {
       cursor: pointer;
     }
@@ -218,7 +105,7 @@ const Operations = styled.div`
 const AddButton = styled.div`
   margin: 4px 8px;
   color: white;
-  padding: 8px 16px;
+  padding: 8px 40px;
   background-color: rgba(112, 76, 182, 0.1);
   height: 40px;
   display: flex;
@@ -232,6 +119,10 @@ const AddButton = styled.div`
     color: rgb(112, 76, 182);
     text-transform: uppercase;
     letter-spacing: 1px;
+    @media (max-width: 768px) {
+      padding: 0px 8px;
+      font-size: 10px;
+    }
   }
   &:hover,
   &:focus {
@@ -242,7 +133,8 @@ const AddButton = styled.div`
     background-color: rgba(112, 76, 182, 0.2);
   }
   @media (max-width: 768px) {
-    padding: 2px 8px;
+    height: 30px;
+    font-size: 12px;
   }
 `;
 const LikeButton = styled.div`
@@ -257,25 +149,30 @@ const LikeButton = styled.div`
     font-size: 8px;
   }
 `;
-const SnackName = styled.div`
-  position: absolute;
-  z-index: 999;
-  margin: 0 auto;
-  left: 0;
-  right: 0;
-  left: 50%;
-  top: 50%;
-  opacity: 0;
-  transition: all 250ms cubic-bezier(0.25, 0.46, 0.45, 0.94) 0s;
-  &:hover {
-    opacity: 100%;
-  }
-  transform: translate(-50%, -50%);
-  h4 {
-    font-size: 20px;
-    text-transform: uppercase;
-    color: white;
+const ItemName = styled.div`
+  font-size: 16px;
+  padding: 8px 4px 0px 0px;
+  color: black;
+  @media (max-width: 768px) {
+    font-size: 14px;
   }
 `;
-
+const ItemPrice = styled.div`
+  font-size: 12 px;
+  color: #2a98b9;
+  margin-top: 10px;
+  @media (max-width: 768px) {
+    font-size: 10px;
+  }
+`;
+export {
+  Container,
+  SnackHeading,
+  Content,
+  Wrap,
+  Operations,
+  AddButton,
+  ItemName,
+  ItemPrice,
+};
 export default Snacks;

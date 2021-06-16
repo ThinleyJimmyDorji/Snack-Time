@@ -2,7 +2,12 @@ import React from "react";
 import styled from "styled-components";
 import { BsHeartFill, BsStar, BsStarFill, BsStarHalf } from "react-icons/bs";
 import { IconContext } from "react-icons";
+import { useDispatch, useSelector } from "react-redux";
+import { decrement, increment } from "../redux/counterSlice";
+
 function Details() {
+  const { count } = useSelector((state) => state.counter);
+  const dispatch = useDispatch();
   return (
     <IconContext.Provider
       value={{ color: "#2a98b9", margin: "2em", size: "1.5em" }}
@@ -37,11 +42,11 @@ function Details() {
             <Quantity>Minimim Quantity: 2</Quantity>
             <OrderDetails>
               <Operations>
-                <Decrement>
+                <Decrement onClick={() => dispatch(decrement())}>
                   <span>-</span>
                 </Decrement>
-                <OrderCount>0</OrderCount>
-                <Increment>
+                <OrderCount>{count}</OrderCount>
+                <Increment onClick={() => dispatch(increment())}>
                   <span>+</span>
                 </Increment>
               </Operations>

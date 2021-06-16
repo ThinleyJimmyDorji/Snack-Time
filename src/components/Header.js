@@ -4,7 +4,23 @@ import { AiFillFire } from "react-icons/ai";
 import { ImSearch } from "react-icons/im";
 import { MdLocalOffer } from "react-icons/md";
 import { IconContext } from "react-icons";
+
+//material UI
+import { Badge } from "@material-ui/core";
+import { withStyles } from "@material-ui/core/styles";
+import IconButton from "@material-ui/core/IconButton";
+import ShoppingCartIcon from "@material-ui/icons/ShoppingCart";
 function Header() {
+  const StyledBadge = withStyles((theme) => ({
+    //shopping cart badge
+    badge: {
+      right: -3,
+      top: 13,
+      border: `2px solid ${theme.palette.background.paper}`,
+      padding: "0 4px",
+    },
+  }))(Badge);
+
   return (
     <IconContext.Provider value={{ color: "#3c096c", size: "1.5em" }}>
       <Nav>
@@ -34,7 +50,11 @@ function Header() {
         <LoginContainer>
           <span>Login</span>
         </LoginContainer>
-
+        <IconButton aria-label="cart">
+          <StyledBadge badgeContent={4} color="secondary">
+            <ShoppingCartIcon />
+          </StyledBadge>
+        </IconButton>
         <UserImage src="/images/user.svg" />
       </Nav>
     </IconContext.Provider>
@@ -83,6 +103,7 @@ const Nav = styled.nav`
   padding: 0 25px;
   overflow-x: hidden;
   width: 100%;
+  margin-top: 0px;
   /* border-bottom: 1px solid rgba(0, 0, 0, 0.1); */
   box-shadow: rgb(0 0 0 /69%) 0px 4px 10px -10px,
     rgb(0 0 0 /73%) 0px 6px 8px -10px;
@@ -172,6 +193,7 @@ const UserImage = styled.img`
   height: 35 px;
   border-radius: 50%;
   cursor: pointer;
+  margin-left: 8px;
 `;
 
 export default Header;

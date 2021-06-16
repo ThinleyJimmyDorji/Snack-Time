@@ -3,34 +3,47 @@ import styled from "styled-components";
 function Viewers() {
   return (
     <Container>
-      <Wrap>
-        <img src="/images/chinese-momo.jpg" alt="" />
-      </Wrap>
-      <Wrap>
-        <img src="/images/omelete.jpg" alt="" />
-      </Wrap>
-      <Wrap>
-        <img src="/images/pasta-with-tomato.jpg" alt="" />
-      </Wrap>
-      <Wrap>
-        <img src="/images/momo.jpg" alt="" />
-      </Wrap>
-      <Wrap>
-        <img src="/images/meat-and-mint-noodle.jpg" alt="" />
-      </Wrap>
+      <Categories>Categories</Categories>
+      <Content>
+        <Wrap>
+          <img src="/images/chinese-momo.jpg" alt="" />
+        </Wrap>
+        <Wrap>
+          <img src="/images/omelete.jpg" alt="" />
+        </Wrap>
+        <Wrap>
+          <img src="/images/pasta-with-tomato.jpg" alt="" />
+        </Wrap>
+      </Content>
     </Container>
   );
 }
 
 const Container = styled.div`
-  margin-top: 30px;
-  padding: 90px 0px 26px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin-top: 100px;
+  // create 5 columns, with min width of 0 (minmax(0,)) but stretch as far as possible(minmax(, 1fr))
+`;
+const Categories = styled.div`
+  width: 40%;
+  background-color: #ecf4f9;
+  text-align: center;
+  padding: 8px 16px;
+  border-radius: 4px;
+  border: 1px solid #2a98b9;
+  font-size: 20px;
+  text-transform: uppercase;
+  margin-bottom: 20px;
+`;
+const Content = styled.div`
+  padding: 0px 0px 26px;
+  max-width: 70%;
   display: grid;
   grid-gap: 25px; //add space between grid items
-  grid-template-columns: repeat(
-    5,
-    minmax(0, 1fr)
-  ); // create 5 columns, with min width of 0 (minmax(0,)) but stretch as far as possible(minmax(, 1fr))
+  grid-template-columns: repeat(3, minmax(0, 1fr));
 `;
 const Wrap = styled.div`
   border: 3px solid rgba(249, 249, 249, 0.1);
@@ -53,7 +66,7 @@ const Wrap = styled.div`
   img {
     width: 100%;
     height: 100%;
-
+    border-radius: 4px;
     object-fit: cover; // fit the object as much as possible inside the div
   }
 `;

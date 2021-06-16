@@ -2,7 +2,6 @@ import React from "react";
 import styled from "styled-components";
 import Viewers from "./Viewers";
 import Snacks from "./Snacks";
-
 function Home() {
   return (
     <Container>

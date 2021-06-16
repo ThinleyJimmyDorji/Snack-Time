@@ -2,11 +2,12 @@ import React from "react";
 import ReactDOM from "react-dom";
 import "./index.css";
 import App from "./App";
-import { store } from "./app/store";
+import { store } from "./redux/store";
 import { Provider } from "react-redux";
 import "@fontsource/roboto";
 
 ReactDOM.render(
+  // make the store available to react components
   <React.StrictMode>
     <Provider store={store}>
       <App />
