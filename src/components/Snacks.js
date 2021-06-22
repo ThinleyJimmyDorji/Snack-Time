@@ -1,8 +1,6 @@
 import React from "react";
 import styled from "styled-components";
 import "../index.css";
-import { BsHeartFill, BsStar, BsStarFill, BsStarHalf } from "react-icons/bs";
-import { IconContext } from "react-icons";
 
 function Snacks() {
   return (

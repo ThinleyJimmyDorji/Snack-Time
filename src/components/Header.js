@@ -4,12 +4,22 @@ import { AiFillFire } from "react-icons/ai";
 import { ImSearch } from "react-icons/im";
 import { MdLocalOffer } from "react-icons/md";
 import { IconContext } from "react-icons";
-
+import { useDispatch, useSelector } from "react-redux";
+import { useHistory } from "react-router-dom";
 //material UI
 import { Badge } from "@material-ui/core";
 import { withStyles } from "@material-ui/core/styles";
 import IconButton from "@material-ui/core/IconButton";
 import ShoppingCartIcon from "@material-ui/icons/ShoppingCart";
+//firebase
+import { auth, provider } from "../firebase";
+//from redux store
+import {
+  selectUserName,
+  selectUserPhoto,
+  setUserLoginDetails,
+  setSignOutState,
+} from "../redux/userSlice";
 function Header() {
   const StyledBadge = withStyles((theme) => ({
     //shopping cart badge
@@ -20,6 +30,48 @@ function Header() {
       padding: "0 4px",
     },
   }))(Badge);
+
+  const history = useHistory();
+  const dispatch = useDispatch();
+  const userName = useSelector(selectUserName);
+  const userPhoto = useSelector(selectUserPhoto);
+  useEffect(() => {
+    auth.onAuthStateChanged(async (user) => {
+      if (user) {
+        setUser(user);
+      }
+    });
+  }, [userName]);
+
+  const signIn = () => {
+    if (!userName) {
+      auth
+        .signInWithPopup(provider)
+        .then((result) => {
+          setUser(result.user);
+          // console.log(result.user.photoURL);
+        })
+        .catch((error) => {
+          alert(error.message);
+        });
+    }
+  };
+
+  const setUser = (user) => {
+    dispatch(
+      setUserLoginDetails({
+        name: user.displayName,
+        email: user.email,
+        photo: user.photoURL,
+      })
+    );
+  };
+
+  const signOut = () => {
+    auth.signOut().then(() => {
+      dispatch(setSignOutState());
+    });
+  };
 
   return (
     <IconContext.Provider value={{ color: "#3c096c", size: "1.5em" }}>
@@ -46,16 +98,35 @@ function Header() {
           <span>Add a Snack</span>
         </PostContainer>
         <Divider></Divider>
+        {!userName ? (
+          <LoginContainer onClick={signIn}>
+            <span>Login</span>
+          </LoginContainer>
+        ) : (
+          <>
+            <SignOutContainer onClick={signOut}>
+              <span>Signout</span>
+            </SignOutContainer>
+          </>
+        )}
 
-        <LoginContainer>
-          <span>Login</span>
-        </LoginContainer>
         <IconButton aria-label="cart">
           <StyledBadge badgeContent={4} color="secondary">
             <ShoppingCartIcon />
           </StyledBadge>
         </IconButton>
-        <UserImage src="/images/user.svg" />
+        <>
+          <User>
+            {!userName ? (
+              <UserImg src="/images/user.svg" />
+            ) : (
+              <>
+                <UserImg src={userPhoto} alt={userName} />
+                {/* <span>{userName}</span> */}
+              </>
+            )}
+          </User>
+        </>
       </Nav>
     </IconContext.Provider>
   );
@@ -141,6 +212,8 @@ const LoginContainer = styled(PostContainer)`
   /* flex: 1; */
 `;
 
+const SignOutContainer = styled(LoginContainer)``;
+
 const NavMenu = styled.div`
   display: flex;
   flex: 1; // give priority to the nav menu, expand as far as possible
@@ -188,12 +261,28 @@ const NavMenu = styled.div`
     }
   }
 `;
-const UserImage = styled.img`
-  width: 35px;
-  height: 35 px;
+const User = styled.div`
+  margin-left: 10px;
+  width: 40px;
+  height: 40px;
   border-radius: 50%;
-  cursor: pointer;
-  margin-left: 8px;
+  display: flex;
+  align-items: center;
+
+  svg {
+    width: 24px;
+    border-radius: 50%;
+  }
+  img {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+  }
+`;
+const UserImg = styled.img`
+  border-radius: 50%;
+  width: 100%;
+  height: 100%;
 `;
 
 export default Header;
