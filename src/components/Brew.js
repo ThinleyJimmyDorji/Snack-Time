@@ -1,5 +1,4 @@
-import React from "react";
-import Viewers from "./Viewers";
+import { React } from "react";
 import {
   Container,
   SnackHeading,
@@ -10,27 +9,35 @@ import {
   ItemName,
   ItemPrice,
 } from "./Snacks";
+import { useSelector } from "react-redux";
+import { Link } from "react-router-dom";
+import { selectBrew } from "../redux/snackSlice";
 
-function Brew() {
+const Brew = (props) => {
+  const brews = useSelector(selectBrew);
   return (
     <Container>
-      <Viewers />
       <SnackHeading>Brew</SnackHeading>
       <Content>
-        <Wrap>
-          <img src="images/ice-tea.jpg" alt="" />
-          <ItemName>Name</ItemName>
-          <ItemPrice>Nu 20.0</ItemPrice>
+        {brews &&
+          brews.map((brew, key) => (
+            <Wrap key={key}>
+              {/* {brew.id} */}
+              <Link to={`/detail` + brew.id}>
+                <img src={brew.image} alt={brew.name} />
+              </Link>
+              <ItemName>{brew.name}</ItemName>
+              <ItemPrice>{brew.price}</ItemPrice>
 
-          <Operations>
-            <AddButton>
-              <span>Select</span>
-            </AddButton>
-          </Operations>
-        </Wrap>
+              <Operations>
+                <AddButton>
+                  <span>Select</span>
+                </AddButton>
+              </Operations>
+            </Wrap>
+          ))}
       </Content>
     </Container>
   );
-}
-
+};
 export default Brew;

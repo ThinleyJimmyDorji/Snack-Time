@@ -1,5 +1,4 @@
 import React from "react";
-import Viewers from "./Viewers";
 import {
   Container,
   SnackHeading,
@@ -10,27 +9,36 @@ import {
   ItemName,
   ItemPrice,
 } from "./Snacks";
+import { useSelector } from "react-redux";
+import { Link } from "react-router-dom";
+import { selectSweets } from "../redux/snackSlice";
 
-function Sweets() {
+const Sweets = (props) => {
+  const sweets = useSelector(selectSweets);
   return (
     <Container>
-      <Viewers />
       <SnackHeading>Sweets</SnackHeading>
       <Content>
-        <Wrap>
-          <img src="images/cup-cake.jpg" alt="" />
-          <ItemName>Name</ItemName>
-          <ItemPrice>Nu 20.0</ItemPrice>
+        {sweets &&
+          sweets.map((sweet, key) => (
+            <Wrap key={key}>
+              {/* {sweet.id} */}
+              <Link to={`/detail` + sweet.id}>
+                <img src={sweet.image} alt={sweet.name} />
+              </Link>
+              <ItemName>{sweet.name}</ItemName>
+              <ItemPrice>{sweet.price}</ItemPrice>
 
-          <Operations>
-            <AddButton>
-              <span>Select</span>
-            </AddButton>
-          </Operations>
-        </Wrap>
+              <Operations>
+                <AddButton>
+                  <span>Select</span>
+                </AddButton>
+              </Operations>
+            </Wrap>
+          ))}
       </Content>
     </Container>
   );
-}
+};
 
 export default Sweets;

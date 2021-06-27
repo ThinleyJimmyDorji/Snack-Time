@@ -1,27 +1,36 @@
 import React from "react";
 import styled from "styled-components";
-import "../index.css";
+import { useSelector } from "react-redux";
+import { Link } from "react-router-dom";
+import { selectSnacks } from "../redux/snackSlice";
 
-function Snacks() {
+const Snacks = (props) => {
+  const snacks = useSelector(selectSnacks);
   return (
     <Container>
-      <SnackHeading>Menu</SnackHeading>
+      <SnackHeading>Snacks</SnackHeading>
       <Content>
-        <Wrap>
-          <img src="images/steamed-noodles.jpg" alt="" />
-          <ItemName>Name</ItemName>
-          <ItemPrice>Nu 55.0</ItemPrice>
+        {snacks &&
+          snacks.map((snack, key) => (
+            <Wrap key={key}>
+              {/* {snack.id} */}
+              <Link to={`/detail` + snack.id}>
+                <img src={snack.image} alt={snack.name} />
+              </Link>
+              <ItemName>{snack.name}</ItemName>
+              <ItemPrice>{snack.price}</ItemPrice>
 
-          <Operations>
-            <AddButton>
-              <span>Select</span>
-            </AddButton>
-          </Operations>
-        </Wrap>
+              <Operations>
+                <AddButton>
+                  <span>Select</span>
+                </AddButton>
+              </Operations>
+            </Wrap>
+          ))}
       </Content>
     </Container>
   );
-}
+};
 
 const Container = styled.div`
   padding: 0px 0px 26px;
@@ -38,6 +47,7 @@ const SnackHeading = styled.div`
   background-color: #ecf4f9;
   text-align: center;
   padding: 8px 16px;
+  margin-top: 100px;
   border-radius: 4px;
   border: 1px solid #2a98b9;
   font-size: 20px;
