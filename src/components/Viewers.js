@@ -40,10 +40,13 @@ const Categories = styled.div`
 `;
 const Content = styled.div`
   padding: 0px 0px 26px;
-  max-width: 70%;
+  max-width: 80%;
   display: grid;
   grid-gap: 25px; //add space between grid items
   grid-template-columns: repeat(3, minmax(0, 1fr));
+  @media (max-width: 768px) {
+    max-width: 100%;
+  }
 `;
 const Wrap = styled.div`
   border: 3px solid rgba(249, 249, 249, 0.1);

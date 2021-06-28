@@ -102,6 +102,11 @@ const Content = styled.div`
   margin-left: 30px;
   margin-bottom: 30px;
   display: flex;
+
+  @media (max-width: 768px) {
+    display: flex;
+    flex-direction: column;
+  }
 `;
 const ItemImage = styled.div`
   border: 3px solid rgba(0, 0, 0, 0.2);
@@ -110,9 +115,6 @@ const ItemImage = styled.div`
     rgb(0 0 0 /73%) 0px 16px 10px -10px;
   cursor: pointer;
   transition: all 250ms cubic-bezier(0.25, 0.46, 0.45, 0.94) 0s;
-  /* max-width: 40%; */
-  width: 600px;
-  height: 350px;
   border-radius: 4px;
 
   img {
@@ -120,10 +122,18 @@ const ItemImage = styled.div`
     height: 100%;
     object-fit: cover;
   }
+  @media (max-width: 768px) {
+    width: 80%auto;
+  }
 `;
 const DetailsBox = styled.div`
-  padding-left: 100px;
-  max-width: 80%;
+  padding-left: 80px;
+  width: 90%;
+  @media (max-width: 768px) {
+    margin: 50px 0px;
+    padding-left: 0px;
+    width: 100%;
+  }
 `;
 const ItemName = styled.div`
   span {
@@ -235,7 +245,7 @@ const TrayBox = styled.div`
 const Description = styled.div`
   height: auto;
   width: 100%;
-  max-width: 350px;
+  /* max-width: 350px; */
   background-color: #ecf4f9;
   border: 1px solid #2a98b9;
   border-left: 6px solid #2a98b9;
@@ -246,5 +256,9 @@ const Description = styled.div`
   }
 
   border-radius: 4px;
+
+  @media (max-width: 768px) {
+    width: 100%;
+  }
 `;
 export default Details;

@@ -33,7 +33,7 @@ const Snacks = (props) => {
 };
 
 const Container = styled.div`
-  padding: 0px 0px 26px;
+  padding: 0px 0px 10px;
   margin-left: 0px;
   margin-top: 0px;
   width: 100%;
@@ -57,10 +57,14 @@ const SnackHeading = styled.div`
 const Content = styled.div`
   margin-left: 0;
   display: grid;
-  grid-gap: 30px;
-  max-width: 60%;
+  grid-gap: 50px;
+  max-width: 70%;
   grid-template-columns: repeat(2, minmax(0, 1fr));
   /* overflow: hidden; */
+  @media (max-width: 768px) {
+    grid-template-columns: repeat(1, minmax(0, 1fr));
+    max-width: 80%;
+  }
 `;
 
 const Wrap = styled.div`
@@ -77,6 +81,7 @@ const Wrap = styled.div`
   transition: all 250ms cubic-bezier(0.25, 0.46, 0.45, 0.94) 0s;
   position: relative;
   margin-bottom: 16px;
+  padding-bottom: 20px;
 
   &:hover {
     /* transform: scale(1.05); */
@@ -87,6 +92,9 @@ const Wrap = styled.div`
 
   @media (max-width: 768px) {
     border-radius: 4px;
+    width: 100%;
+    margin: 10px 0px;
+    /* padding: 0px 0px; */
   }
 
   img {
