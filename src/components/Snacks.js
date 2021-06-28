@@ -14,7 +14,7 @@ const Snacks = (props) => {
           snacks.map((snack, key) => (
             <Wrap key={key}>
               {/* {snack.id} */}
-              <Link to={`/detail` + snack.id}>
+              <Link to={`/detail/` + snack.id}>
                 <img src={snack.image} alt={snack.name} />
               </Link>
               <ItemName>{snack.name}</ItemName>

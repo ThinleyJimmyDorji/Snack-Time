@@ -23,7 +23,7 @@ const Brew = (props) => {
           brews.map((brew, key) => (
             <Wrap key={key}>
               {/* {brew.id} */}
-              <Link to={`/detail` + brew.id}>
+              <Link to={`/detail/` + brew.id}>
                 <img src={brew.image} alt={brew.name} />
               </Link>
               <ItemName>{brew.name}</ItemName>

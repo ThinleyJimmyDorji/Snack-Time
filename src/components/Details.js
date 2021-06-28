@@ -4,10 +4,31 @@ import { BsHeartFill, BsStar, BsStarFill, BsStarHalf } from "react-icons/bs";
 import { IconContext } from "react-icons";
 import { useDispatch, useSelector } from "react-redux";
 import { decrement, increment } from "../redux/counterSlice";
+import { useState, useEffect } from "react";
+import { useParams } from "react-router-dom"; // helpful in getting id
+import db from "../firebase";
 
 function Details() {
   const { count } = useSelector((state) => state.counter);
   const dispatch = useDispatch();
+  const { id } = useParams();
+  const [detailData, setDetailData] = useState({}); //set a variable 'detail' whose value will bet set by 'setDetailData' func. Start with empty set(empty detail)
+
+  useEffect(() => {
+    db.collection("snacks")
+      .doc(id)
+      .get()
+      .then((doc) => {
+        if (doc.exists) {
+          setDetailData(doc.data());
+        } else {
+          console.log("No collection as such exists");
+        }
+      })
+      .catch((error) => {
+        console.log("error fetching the document:", error);
+      });
+  }, [id]);
   return (
     <IconContext.Provider
       value={{ color: "#2a98b9", margin: "2em", size: "1.5em" }}
@@ -15,11 +36,11 @@ function Details() {
       <Container>
         <Content>
           <ItemImage>
-            <img src="/images/steamed-noodles.jpg" alt="" />
+            <img src={detailData.image} alt={detailData.name} />
           </ItemImage>
           <DetailsBox>
             <ItemName>
-              <span>Steamed Noodles with tomato paste</span>
+              <span>{detailData.name}</span>
             </ItemName>
             <RatingBox>
               <Stars>
@@ -34,10 +55,10 @@ function Details() {
                 <BsStarFill />
                 &nbsp;
               </Stars>
-              <RatingCount>36 reviews</RatingCount>
+              <RatingCount>{detailData.reviews} reviews</RatingCount>
             </RatingBox>
             <ItemPrice>
-              <h2> Nu 55.00 </h2>&nbsp;
+              <h2> Nu {detailData.price} </h2>&nbsp;
             </ItemPrice>
             <Quantity>Minimim Quantity: 2</Quantity>
             <OrderDetails>

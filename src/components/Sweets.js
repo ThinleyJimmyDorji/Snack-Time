@@ -23,7 +23,7 @@ const Sweets = (props) => {
           sweets.map((sweet, key) => (
             <Wrap key={key}>
               {/* {sweet.id} */}
-              <Link to={`/detail` + sweet.id}>
+              <Link to={`/detail/` + sweet.id}>
                 <img src={sweet.image} alt={sweet.name} />
               </Link>
               <ItemName>{sweet.name}</ItemName>
