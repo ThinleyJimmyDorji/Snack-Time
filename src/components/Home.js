@@ -12,7 +12,7 @@ import { selectUserName } from "../redux/userSlice";
 
 function Home() {
   const dispatch = useDispatch();
-  const userName = useSelector(selectUserName);
+  // const userName = useSelector(selectUserName);
   let snack_items = [];
   let brew_items = [];
   let sweets_items = [];
@@ -20,7 +20,7 @@ function Home() {
   useEffect(() => {
     db.collection("snacks").onSnapshot((snapshot) => {
       snapshot.docs.map((doc) => {
-        console.log(snack_items);
+        // console.log(snack_items);
         switch (doc.data().category) {
           case "snacks":
             snack_items = [...snack_items, { id: doc.id, ...doc.data() }];

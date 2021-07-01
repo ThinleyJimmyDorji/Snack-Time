@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { AiFillFire } from "react-icons/ai";
 import { ImSearch } from "react-icons/im";
@@ -11,6 +11,7 @@ import { Badge } from "@material-ui/core";
 import { withStyles } from "@material-ui/core/styles";
 import IconButton from "@material-ui/core/IconButton";
 import ShoppingCartIcon from "@material-ui/icons/ShoppingCart";
+import { Link } from "react-router-dom";
 //firebase
 import { auth, provider } from "../firebase";
 //from redux store
@@ -20,7 +21,10 @@ import {
   setUserLoginDetails,
   setSignOutState,
 } from "../redux/userSlice";
+import { selectCartSnacks } from "../redux/orderSlice";
 function Header() {
+  const items = useSelector(selectCartSnacks);
+  console.log(items);
   const StyledBadge = withStyles((theme) => ({
     //shopping cart badge
     badge: {
@@ -31,7 +35,7 @@ function Header() {
     },
   }))(Badge);
 
-  const history = useHistory();
+  // const history = useHistory();
   const dispatch = useDispatch();
   const userName = useSelector(selectUserName);
   const userPhoto = useSelector(selectUserPhoto);
@@ -110,11 +114,13 @@ function Header() {
           </>
         )}
 
-        <IconButton aria-label="cart">
-          <StyledBadge badgeContent={4} color="secondary">
-            <ShoppingCartIcon />
-          </StyledBadge>
-        </IconButton>
+        <Link to="/checkout">
+          <IconButton aria-label="cart">
+            <StyledBadge badgeContent={items?.length} color="secondary">
+              <ShoppingCartIcon />
+            </StyledBadge>
+          </IconButton>
+        </Link>
         <>
           <User>
             {!userName ? (

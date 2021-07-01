@@ -3,9 +3,30 @@ import styled from "styled-components";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { selectSnacks } from "../redux/snackSlice";
+import { setCartSnacks } from "../redux/orderSlice";
+import { useDispatch } from "react-redux";
+import PropTypes from "prop-types";
 
 const Snacks = (props) => {
   const snacks = useSelector(selectSnacks);
+  const dispatch = useDispatch();
+
+  const setCartItem = (id, name, category, image, reviews, price) => {
+    dispatch(
+      setCartSnacks({
+        type: "ADD_TO_CART",
+        item: {
+          id: id,
+          name:name,
+          category: category,
+          image: image,
+          reviews: reviews,
+          price: price,
+        },
+      })
+    );
+  };
+
   return (
     <Container>
       <SnackHeading>Snacks</SnackHeading>
@@ -21,7 +42,18 @@ const Snacks = (props) => {
               <ItemPrice>{snack.price}</ItemPrice>
 
               <Operations>
-                <AddButton>
+                <AddButton
+                  onClick={() => {
+                    setCartItem(
+                      snack.id,
+                      snack.name,
+                      snack.category,
+                      snack.image,
+                      snack.reviews,
+                      snack.price
+                    );
+                  }}
+                >
                   <span>Select</span>
                 </AddButton>
               </Operations>
@@ -30,6 +62,17 @@ const Snacks = (props) => {
       </Content>
     </Container>
   );
+};
+
+Snacks.propTypes = {
+  item: PropTypes.shape({
+    id: PropTypes.string,
+    name:PropTypes.string,
+    category: PropTypes.string,
+    image: PropTypes.string,
+    reviews: PropTypes.number,
+    price: PropTypes.number,
+  }),
 };
 
 const Container = styled.div`
