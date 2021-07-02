@@ -1,9 +1,9 @@
 import React from "react";
 import styled from "styled-components";
 import { useDispatch, useSelector } from "react-redux";
-import { selectCartSnacks, removeCartSnacks } from "../redux/orderSlice";
+import { selectCartSnacks, setCartSnacks } from "../redux/orderSlice";
 import { Link } from "react-router-dom";
-
+import Subtotal from "./Subtotal";
 function Checkout() {
   const items = useSelector(selectCartSnacks);
   const dispatch = useDispatch();
@@ -14,8 +14,13 @@ function Checkout() {
   // }
   // console.log(subTotal);
 
-  const removeCartItem = () => {
-    dispatch(removeCartSnacks);
+  const removeCartItem = (id) => {
+    dispatch(
+      setCartSnacks({
+        type: "REMOVE_FROM_CART",
+        id: id,
+      })
+    );
   };
   return (
     <Container>
@@ -34,15 +39,19 @@ function Checkout() {
               <Info>
                 <Title>{item.name}</Title>
                 <Price>
-                  <span>$</span>
+                  <span>Nu </span>
                   <strong>{item.price}</strong>
                 </Price>
                 <Rating>
-                  <p>🌟</p>
+                  {/* {Array(item.ratings)
+                    .fill()
+                    .map((_, i) => (
+                        <p>🌟</p>
+                    ))} */}
                 </Rating>
                 <Button
                   onClick={() => {
-                    removeCartItem();
+                    removeCartItem(item.id);
                   }}
                 >
                   <span>Remove</span>
@@ -51,19 +60,36 @@ function Checkout() {
             </BasketList>
           ))}
       </CheckoutLeft>
-      <CheckoutRight></CheckoutRight>
+
+      <CartContainer>
+        <CheckoutHeading>Order Summary</CheckoutHeading>
+        <CheckoutRight>
+          <Subtotal />
+        </CheckoutRight>
+      </CartContainer>
     </Container>
   );
 }
+const CartContainer = styled.div`
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  margin-left: 20px;
+`;
 
 const Container = styled.div`
   width: 100%;
   display: flex;
-  align-items: center;
+  @media (max-width: 768px) {
+    display: flex;
+    flex-direction: column;
+  }
 `;
 const CheckoutLeft = styled.div`
   width: 100%;
   max-height: 90%;
+  margin-top: 100px;
+  margin-left: 20px;
   display: grid;
   flex-direction: column;
   grid-template-columns: repeat(1, minmax(0, 1fr));
@@ -73,15 +99,29 @@ const CheckoutLeft = styled.div`
     height: 80px;
     object-fit: contain;
   }
+  @media (max-width: 768px) {
+    width: 100%;
+  }
 `;
 const Heading = styled.div`
   font-size: 20px;
+  height:40px;
+  max-width: 490px;
   font-weight: 600;
   color: rgba(0, 0, 0, 0.6);
   border-bottom: 1px solid rgba(0, 0, 0, 0.2);
   padding-bottom: 15px;
-  margin-top: 90px;
   margin-left: 20px;
+  @media (max-width: 768px) {
+    border: none;
+  }
+`;
+const CheckoutHeading = styled(Heading)`
+  width: 60%;
+  margin-top: 100px;
+  @media (max-width: 768px) {
+    border: none;
+  }
 `;
 const BasketList = styled.div`
   display: flex;
@@ -92,8 +132,24 @@ const BasketList = styled.div`
   height: 150px;
 `;
 const CheckoutRight = styled.div`
-  width: 100%;
-  height: 20px;
+  background-color: red;
+  width: 60%;
+  height: 200px;
+  max-height: 250px;
+  display: flex;
+  justify-content: center;
+  /* margin: 0px 30px; */
+  margin-left: 20px;
+  border-radius: 5px;
+  background-color: #ecf4f9;
+  border: 1px solid #2a98b9;
+  border-left: 6px solid #2a98b9;
+  margin-top: 20px;
+  position: sticky;
+  @media (max-width: 768px) {
+    width: 90%;
+    margin: 30px 10px;
+  }
 `;
 
 const ImageContainer = styled.div`
@@ -118,8 +174,9 @@ const Info = styled.div`
   align-items: center;
   margin: 5px 20px;
   padding: 5px 20px;
-  title {
-    /* padding: 0px 10px; */
+  @media (max-width: 768px) {
+    width: 80%;
+    margin: 30px 10px;
   }
 `;
 const Title = styled.div`
@@ -128,11 +185,10 @@ const Title = styled.div`
 const Price = styled.div``;
 const Rating = styled.div``;
 const Button = styled.div`
-  margin: 4px 8px;
+  margin: 10px 8px;
   color: white;
   padding: 8px 40px;
   background-color: rgba(112, 76, 182, 0.1);
-  height: 40px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -142,7 +198,6 @@ const Button = styled.div`
   span {
     font-size: 12px;
     color: rgb(112, 76, 182);
-    text-transform: uppercase;
     letter-spacing: 1px;
     @media (max-width: 768px) {
       padding: 0px 8px;

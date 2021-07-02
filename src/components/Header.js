@@ -1,8 +1,5 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
-import { AiFillFire } from "react-icons/ai";
-import { ImSearch } from "react-icons/im";
-import { MdLocalOffer } from "react-icons/md";
 import { IconContext } from "react-icons";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
@@ -86,15 +83,12 @@ function Header() {
 
         <NavMenu>
           <a>
-            <AiFillFire />
             <span>Sale</span>
           </a>
           <a>
-            <ImSearch />
             <span>Search</span>
           </a>
           <a>
-            <MdLocalOffer />
             <span>Offers</span>
           </a>
         </NavMenu>
@@ -117,7 +111,7 @@ function Header() {
         <Link to="/checkout">
           <IconButton aria-label="cart">
             <StyledBadge badgeContent={items?.length} color="secondary">
-              <ShoppingCartIcon />
+              <ShoppingCartIcon/>
             </StyledBadge>
           </IconButton>
         </Link>
@@ -237,10 +231,8 @@ const NavMenu = styled.div`
       height: 20px;
     }
     span {
-      font-size: 16px;
-      font-weight: 600;
+      font-size: 12px;
       letter-spacing: 1.42px;
-      font-weight: 500;
       position: relative;
       color: rgb(112, 76, 182);
 
