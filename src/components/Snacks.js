@@ -11,7 +11,7 @@ const Snacks = (props) => {
   const snacks = useSelector(selectSnacks);
   const dispatch = useDispatch();
 
-  const setCartItem = (id, name, category, image, reviews, price) => {
+  const  setCartItem = (id, name, category, image, reviews, price) => {
     dispatch(
       setCartSnacks({
         type: "ADD_TO_CART",
@@ -35,9 +35,9 @@ const Snacks = (props) => {
           snacks.map((snack, key) => (
             <Wrap key={key}>
               {/* {snack.id} */}
-              <Link to={`/detail/` + snack.id}>
-                <img src={snack.image} alt={snack.name} />
-              </Link>
+                <Link to={`/detail/` + snack.id}>
+                  <img src={snack.image} alt={snack.name} />
+                </Link>
               <ItemName>{snack.name}</ItemName>
               <ItemPrice>{snack.price}</ItemPrice>
 
@@ -63,6 +63,7 @@ const Snacks = (props) => {
     </Container>
   );
 };
+
 
 Snacks.propTypes = {
   item: PropTypes.shape({
