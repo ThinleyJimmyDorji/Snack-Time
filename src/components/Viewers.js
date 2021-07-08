@@ -6,13 +6,13 @@ function Viewers() {
       <Categories>Categories</Categories>
       <Content>
         <Wrap>
-          <img src="/images/chinese-momo.jpg" alt="" />
+          <img src="https://images.pexels.com/photos/1103909/pexels-photo-1103909.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500" alt="" />
         </Wrap>
         <Wrap>
-          <img src="/images/omelete.jpg" alt="" />
+          <img src="https://images.pexels.com/photos/6347/coffee-cup-working-happy.jpg?auto=compress&cs=tinysrgb&dpr=1&w=500" alt="" />
         </Wrap>
         <Wrap>
-          <img src="/images/pasta-with-tomato.jpg" alt="" />
+          <img src="https://images.pexels.com/photos/1070850/pexels-photo-1070850.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500" alt="" />
         </Wrap>
       </Content>
     </Container>
