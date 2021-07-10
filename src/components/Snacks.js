@@ -28,7 +28,7 @@ const Snacks = (props) => {
   };
 
   return (
-    <Container>
+    <Container id = "snacks">
       <SnackHeading>Snacks</SnackHeading>
       <Content>
         {snacks &&
@@ -39,7 +39,7 @@ const Snacks = (props) => {
                 <img src={snack.image} alt={snack.name} />
               </Link>
               <ItemName>{snack.name}</ItemName>
-              <ItemPrice>{snack.price}</ItemPrice>
+              <ItemPrice> <span>Nu. </span>{snack.price}</ItemPrice>
 
               <Operations>
                 <AddButton

@@ -6,7 +6,7 @@ import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 import Details from "./components/Details";
 import Brew from "./components/Brew";
 import Sweets from "./components/Sweets";
-import Checkout from "./components/Checkout"
+import Checkout from "./components/Checkout";
 
 function App() {
   return (
@@ -15,8 +15,8 @@ function App() {
       <Router>
         <Header />
         <Switch>
-          <Route path = "/checkout">
-            <Checkout/>
+          <Route path="/checkout">
+            <Checkout />
           </Route>
           <Route path="/sweets">
             <Sweets />

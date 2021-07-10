@@ -1,19 +1,36 @@
 import React from "react";
 import styled from "styled-components";
+import { Link, animateScroll } from "react-scroll";
+
 function Viewers() {
   return (
     <Container>
       <Categories>Categories</Categories>
       <Content>
-        <Wrap>
-          <img src="https://images.pexels.com/photos/1103909/pexels-photo-1103909.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500" alt="" />
-        </Wrap>
-        <Wrap>
-          <img src="https://images.pexels.com/photos/6347/coffee-cup-working-happy.jpg?auto=compress&cs=tinysrgb&dpr=1&w=500" alt="" />
-        </Wrap>
-        <Wrap>
-          <img src="https://images.pexels.com/photos/1070850/pexels-photo-1070850.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500" alt="" />
-        </Wrap>
+        <Link to="snacks" smooth={true} duration={500}>
+          <Wrap>
+            <img
+              src="https://images.pexels.com/photos/1103909/pexels-photo-1103909.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500"
+              alt=""
+            />
+          </Wrap>
+        </Link>
+        <Link to="brew" smooth={true} duration={1000}>
+          <Wrap>
+            <img
+              src="https://images.pexels.com/photos/6347/coffee-cup-working-happy.jpg?auto=compress&cs=tinysrgb&dpr=1&w=500"
+              alt=""
+            />
+          </Wrap>
+        </Link>
+        <Link to="sweets" smooth={true} duration={1000}>
+          <Wrap>
+            <img
+              src="https://images.pexels.com/photos/1070850/pexels-photo-1070850.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500"
+              alt=""
+            />
+          </Wrap>
+        </Link>
       </Content>
     </Container>
   );

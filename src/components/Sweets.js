@@ -36,7 +36,7 @@ const Sweets = (props) => {
   };
 
   return (
-    <Container>
+    <Container id = "sweets">
       <SnackHeading>Sweets</SnackHeading>
       <Content>
         {sweets &&

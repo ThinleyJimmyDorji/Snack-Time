@@ -34,6 +34,7 @@ function Header() {
 
   // const history = useHistory();
   const dispatch = useDispatch();
+  const history = useHistory();
   const userName = useSelector(selectUserName);
   const userPhoto = useSelector(selectUserPhoto);
   useEffect(() => {
@@ -92,9 +93,11 @@ function Header() {
             <span>Offers</span>
           </a>
         </NavMenu>
+
         <PostContainer>
           <span>Add a Snack</span>
         </PostContainer>
+
         <Divider></Divider>
         {!userName ? (
           <LoginContainer onClick={signIn}>
@@ -111,7 +114,7 @@ function Header() {
         <Link to="/checkout">
           <IconButton aria-label="cart">
             <StyledBadge badgeContent={items?.length} color="secondary">
-              <ShoppingCartIcon/>
+              <ShoppingCartIcon />
             </StyledBadge>
           </IconButton>
         </Link>

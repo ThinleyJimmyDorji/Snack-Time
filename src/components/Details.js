@@ -29,6 +29,7 @@ function Details() {
         console.log("error fetching the document:", error);
       });
   }, [id]);
+
   return (
     <IconContext.Provider
       value={{ color: "#2a98b9", margin: "2em", size: "1.5em" }}
@@ -63,7 +64,11 @@ function Details() {
             <Quantity>Minimim Quantity: 2</Quantity>
             <OrderDetails>
               <Operations>
-                <Decrement onClick={() => dispatch(decrement())}>
+                <Decrement
+                  disabled={!count ? true : false}
+                  count
+                  onClick={() => dispatch(decrement())}
+                >
                   <span>-</span>
                 </Decrement>
                 <OrderCount>{count}</OrderCount>

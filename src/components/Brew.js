@@ -37,7 +37,7 @@ const Brew = (props) => {
     );
   };
   return (
-    <Container>
+    <Container id="brew">
       <SnackHeading>Brew</SnackHeading>
       <Content>
         {brews &&
