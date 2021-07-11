@@ -8,30 +8,46 @@ import { useState, useEffect } from "react";
 import ReviewModal from "./ReviewModal";
 import { useParams } from "react-router-dom"; // helpful in getting id
 import db from "../firebase";
+import moment from "moment";
+//redux store
+import {
+  selectUserName,
+  selectUserPhoto,
+  selectUserEmail,
+} from "../redux/userSlice";
 
 function Details() {
   const { count } = useSelector((state) => state.counter);
   const dispatch = useDispatch();
   const { id } = useParams();
   const [detailData, setDetailData] = useState({}); //set a variable 'detail' whose value will bet set by 'setDetailData' func. Start with empty set(empty detail)
-  const [showModal, setShowModal] = useState("close");
 
-  const handleClick = (e) => {
-    e.preventDefault();
-    if (e.target != e.currentTarget) {
-      return;
+  const userName = useSelector(selectUserName);
+  const userPhoto = useSelector(selectUserPhoto);
+  const userEmail = useSelector(selectUserEmail);
+  const [reviewData, setReviewData] = useState([]);
+
+  useEffect(() => {
+    if (userName) {
+      db.collection("snacks")
+        .doc(id)
+        .collection("reviews")
+        .orderBy("timestamp", "desc")
+        .onSnapshot((snapshot) =>
+          setReviewData(
+            snapshot.docs.map((doc) => ({
+              id: doc.id,
+              data: doc.data(),
+            }))
+          )
+        );
+    } else {
+      setReviewData([]);
     }
-    switch (showModal) {
-      case "open":
-        setShowModal("close");
-        break;
-      case "close":
-        setShowModal("open");
-        break;
-      default:
-        setShowModal("close");
-    }
-  };
+  }, [id]);
+
+  console.log(reviewData);
+
   useEffect(() => {
     db.collection("snacks")
       .doc(id)
@@ -48,39 +64,36 @@ function Details() {
       });
   }, [id]);
 
+  const data = {
+    id: id,
+    actor: {
+      userName: userName,
+      userEmail: userEmail,
+      userPhoto: userPhoto,
+    },
+    itemDetails: detailData,
+  };
+
   return (
     <IconContext.Provider
-      value={{ color: "#2a98b9", margin: "2em", size: "1.5em" }}
+      value={{ color: "#00bf88", margin: "2em", size: "0.8em" }}
     >
       <Container>
         <Content>
-          <div class="item-action">
-            <ItemImage>
-              <img src={detailData.image} alt={detailData.name} />
-            </ItemImage>
-          </div>
+          <ItemImage>
+            <img src={detailData.image} alt={detailData.name} />
+          </ItemImage>
 
           <DetailsBox>
             <ItemName>
               <span>{detailData.name}</span>
             </ItemName>
             <RatingBox>
-              <Stars>
-                <BsStarFill />
-                &nbsp; &nbsp;
-                <BsStarFill />
-                &nbsp; &nbsp;
-                <BsStarFill />
-                &nbsp; &nbsp;
-                <BsStarFill />
-                &nbsp; &nbsp;
-                <BsStarFill />
-                &nbsp;
-              </Stars>
-              <RatingCount>{detailData.reviews} reviews</RatingCount>
+              <RatingCount>{reviewData.length} reviews</RatingCount>
             </RatingBox>
             <ItemPrice>
-              <h2> Nu {detailData.price} </h2>&nbsp;
+              <span> Nu. </span>
+              <strong>{detailData.price}</strong>
             </ItemPrice>
 
             <OrderDetails>
@@ -114,12 +127,94 @@ function Details() {
           </DetailsBox>
         </Content>
         <ReviewBox>
-          <ReviewModal />
+          <ReviewModal data={data} />
         </ReviewBox>
+        <TopReviews>
+          <Heading>Top Reviews</Heading>
+          <>
+            {detailData.length != 0 ? (
+              <DisplayReview>
+                {reviewData &&
+                  reviewData?.map((detail, key) => (
+                    <Wrap key={key}>
+                      <div class="wrapper">
+                        <div class="image">
+                          <img src={detail.data.actor.userPhoto} alt="" />
+                        </div>
+                        <div class="name">{detail.data.actor.userName}</div>
+                        <div class="date">
+                          {detail.data.timestamp.toDate().toLocaleDateString()}
+                        </div>
+                      </div>
+                      <div class="stars">
+                        {" "}
+                        {Array(detail.data.rating)
+                          .fill()
+                          .map((_, i) => (
+                            <BsStarFill />
+                          ))}
+                      </div>
+                      <div class="reviews">{detail.data.review}</div>
+                    </Wrap>
+                  ))}
+              </DisplayReview>
+            ) : (
+              <span>No reviews. Write one</span>
+            )}
+          </>
+        </TopReviews>
       </Container>
     </IconContext.Provider>
   );
 }
+
+const DisplayReview = styled.div`
+  height: 100%;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+`;
+const Wrap = styled.div`
+  height: 100%;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  margin-top: 40px;
+
+  padding-left: 6px;
+  border-left: 4px solid #2a98b9;
+  .wrapper {
+    display: flex;
+  }
+  .name {
+    display: flex;
+    flex: 1;
+
+    margin-left: 10px;
+  }
+  .image {
+    border-raduis: 50px;
+    img {
+      width: 27px;
+      height: 27px;
+      border-radius: 50%;
+    }
+  }
+  .reviews {
+    width: 100%;
+    margin-top: 20px;
+    font-size: 14px;
+  }
+`;
+const TopReviews = styled.div`
+  width: 50%;
+  height: 100px;
+  margin-bottom: 200px;
+  @media (max-width: 768px) {
+    width: 100%;
+  }
+`;
+const Heading = styled.div``;
 
 const Container = styled.div`
   min-height: calc(100vh - 70px);
@@ -151,7 +246,7 @@ const ItemImage = styled.div`
   transition: all 250ms cubic-bezier(0.25, 0.46, 0.45, 0.94) 0s;
   border-radius: 4px;
   height: 350px;
-  width: 600px;
+  width: 100%;
   max-height: 400px;
 
   img {

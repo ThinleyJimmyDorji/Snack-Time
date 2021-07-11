@@ -15,6 +15,7 @@ import { auth, provider } from "../firebase";
 import {
   selectUserName,
   selectUserPhoto,
+  selectUserEmail,
   setUserLoginDetails,
   setSignOutState,
 } from "../redux/userSlice";
@@ -96,9 +97,7 @@ function Header() {
           </a>
         </NavMenu>
 
-        <PostContainer>
-          <span>Add a Snack</span>
-        </PostContainer>
+        <div class="space"></div>
 
         <Divider></Divider>
         {!userName ? (
@@ -183,6 +182,10 @@ const Nav = styled.nav`
   /* border-bottom: 1px solid rgba(0, 0, 0, 0.1); */
   box-shadow: rgb(0 0 0 /69%) 0px 4px 10px -10px,
     rgb(0 0 0 /73%) 0px 6px 8px -10px;
+
+  .space {
+    flex: 1;
+  }
 `;
 
 const LogoWrapper = styled.div`
@@ -227,6 +230,10 @@ const NavMenu = styled.div`
   align-items: center;
   padding: 8px 8px;
   margin-right: 8px;
+
+  @media (max-width: 768px) {
+    display: none;
+  }
 
   a {
     display: flex;

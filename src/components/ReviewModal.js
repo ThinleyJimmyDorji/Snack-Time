@@ -1,6 +1,11 @@
 import React from "react";
 import styled from "styled-components";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { postReviewAPI } from "../actions";
+import firebase from "firebase";
+
+import { useSelector } from "react-redux";
+import { selectUserName } from "../redux/userSlice";
 
 //material UI
 import { withStyles } from "@material-ui/core/styles";
@@ -17,14 +22,33 @@ function ReviewModal(props) {
     },
   })(Rating);
 
+  const userName = useSelector(selectUserName);
+
   const [editorText, setEditorText] = useState("");
   const [rating, setRating] = useState(0);
 
   const reset = (e) => {
     setEditorText("");
-    props.handleClick(e);
+    // props.handleClick(e);
   };
-  console.log(props.showModal);
+
+  const postReview = (e) => {
+    e.preventDefault();
+    if (e.target !== e.currentTarget) {
+      return;
+    }
+    const payload = {
+      itemId: props.data.id,
+      user: props.data.actor,
+      review: editorText,
+      rating: rating,
+      timestamp: firebase.firestore.Timestamp.now(),
+    };
+    console.log(payload);
+    postReviewAPI(payload);
+    reset(e);
+  };
+
   return (
     <Container>
       <Content>
@@ -36,9 +60,12 @@ function ReviewModal(props) {
         <SharedContent>
           <div class="shared-content">
             <UserInfo>
-              <img src="/images/user.svg" alt="" />
+              <img src={props.data.actor.userPhoto} alt="" />
             </UserInfo>
-            <PostButton disabled={!editorText ? true : false}>
+            <PostButton
+              disabled={!editorText ? true : false}
+              onClick={(event) => postReview(event)}
+            >
               <span>Post</span>
             </PostButton>
           </div>
@@ -70,20 +97,24 @@ function ReviewModal(props) {
 }
 const Container = styled.div`
   width: 100%;
-  margin-bottom: 150px;
+  margin-bottom: 80px;
 `;
 const Content = styled.div`
-  width: 100%;
-  max-width: 552px;
+  width: 50%;
+  // max-width: 552px;
   background-color: white;
   overflow: initial;
   border-radius: 5px;
   position: relative;
   display: flex;
   flex-direction: column;
-  top: 32px;
+  top: 10px;
   left: 30px;
   border: 1px solid rgba(0, 0, 0, 0.3);
+
+  @media (max-width: 768px) {
+    width: 95%;
+  }
 `;
 const Header = styled.div`
   display: block;
@@ -110,29 +141,16 @@ const Header = styled.div`
   }
 `;
 const WriteReview = styled.div`
-  background-color: rgba(112, 76, 182, 0.1);
   width: 150px;
-  height: 35px;
+  height: 20px;
   display: flex;
   align-items: center;
-  justify-content: center;
-  border-radius: 4px;
-  cursor: pointer;
   transition: all 0.15s;
   margin: 0px 10px;
-  margin-left: 50px;
   span {
-    font-size: 12px;
+    font-size: 16px;
     color: rgb(112, 76, 182);
     letter-spacing: 1px;
-  }
-  &:hover,
-  &:focus {
-    border: 1px solid rgba(112, 76, 182, 0.5);
-  }
-
-  &:active {
-    background-color: rgba(112, 76, 182, 0.2);
   }
 `;
 
@@ -157,8 +175,8 @@ const UserInfo = styled.div`
   padding: 12px 24px;
   svg,
   img {
-    height: 24px;
-    width: 24px;
+    height: 30px;
+    width: 30px;
     background-clip: content-box;
     border: 2ps solid transparent;
     border-radius: 50%;
@@ -171,19 +189,17 @@ const UserInfo = styled.div`
   }
 `;
 const Editor = styled.div`
-  padding: 12px 24px;
+  padding: 2px 8px;
   textarea {
     width: 100%;
     min-height: 100px;
-    height: 200px;
     resize: none;
     border: 1px solid rgba(112, 76, 182, 0.5);
   }
   input {
     width: 100;
-    height: 200px;
+    height: 50px;
     font-size: 16px;
-    margin-bottom: 20px;
   }
 `;
 const ShareCreation = styled.div`

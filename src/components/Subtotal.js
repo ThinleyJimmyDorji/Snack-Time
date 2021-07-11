@@ -14,7 +14,7 @@ function Subtotal() {
         renderText={(value) => (
           <>
             <p className="subtotal">
-              Subtotal ({items?.length} items): 
+              Subtotal ({items?.length} items):
               <strong classname="amount">{value}</strong>
             </p>
             <p className="delivery_charge">
@@ -30,7 +30,7 @@ function Subtotal() {
         prefix={"Nu."}
       />
 
-      <CheckoutButton>
+      <CheckoutButton disabled={items.length != 0 ? false : true}>
         <span>Proceed to Checkout</span>
       </CheckoutButton>
     </Component>
@@ -38,7 +38,7 @@ function Subtotal() {
 }
 const Component = styled.div`
   width: 100%;
-  height :100%;
+  height: 100%;
   display: flex;
   align-items: center;
   top: 0;
@@ -79,6 +79,9 @@ const CheckoutButton = styled.div`
 
   &:active {
     background-color: rgba(112, 76, 182, 0.2);
+  }
+  disabled {
+    cursor: not-allowed;
   }
 `;
 

@@ -23,51 +23,59 @@ function Checkout() {
     );
   };
   return (
-    <Container>
-      <CheckoutLeft>
-        <Heading> Your Order Tray</Heading>
+    <>
+      <Container>
+        <CheckoutLeft>
+          <Heading> Your Order Tray</Heading>
 
-        {items &&
-          items.map((item, key) => (
-            <BasketList key={key}>
-              <ImageContainer>
-                <Link to={`/detail/` + item.id}>
-                  <img src={item.image} alt={item.name} />
-                </Link>
-              </ImageContainer>
+          {items.length != 0 ? (
+            items.map((item, key) => (
+              <BasketList key={key}>
+                <ImageContainer>
+                  <Link to={`/detail/` + item.id}>
+                    <img src={item.image} alt={item.name} />
+                  </Link>
+                </ImageContainer>
 
-              <Info>
-                <Title>{item.name}</Title>
-                <Price>
-                  <span>Nu </span>
-                  <strong>{item.price}</strong>
-                </Price>
-                <Rating>
-                  {/* {Array(item.ratings)
+                <Info>
+                  <Title>{item.name}</Title>
+                  <Price>
+                    <span>Nu </span>
+                    <strong>{item.price}</strong>
+                  </Price>
+                  <Rating>
+                    {/* {Array(item.ratings)
                     .fill()
                     .map((_, i) => (
                         <p>🌟</p>
                     ))} */}
-                </Rating>
-                <Button
-                  onClick={() => {
-                    removeCartItem(item.id);
-                  }}
-                >
-                  <span>Remove</span>
-                </Button>
-              </Info>
-            </BasketList>
-          ))}
-      </CheckoutLeft>
+                  </Rating>
+                  <Button
+                    onClick={() => {
+                      removeCartItem(item.id);
+                    }}
+                  >
+                    <span>Remove</span>
+                  </Button>
+                </Info>
+              </BasketList>
+            ))
+          ) : (
+            <EmptyMessage>
+              <img src="/images/food-tray.svg" />
+              <span>Add something on your tray</span>
+            </EmptyMessage>
+          )}
+        </CheckoutLeft>
 
-      <CartContainer>
-        <CheckoutHeading>Order Summary</CheckoutHeading>
-        <CheckoutRight>
-          <Subtotal />
-        </CheckoutRight>
-      </CartContainer>
-    </Container>
+        <CartContainer>
+          <CheckoutHeading>Order Summary</CheckoutHeading>
+          <CheckoutRight>
+            <Subtotal />
+          </CheckoutRight>
+        </CartContainer>
+      </Container>
+    </>
   );
 }
 const CartContainer = styled.div`
@@ -105,7 +113,7 @@ const CheckoutLeft = styled.div`
 `;
 const Heading = styled.div`
   font-size: 20px;
-  height:40px;
+  height: 40px;
   max-width: 490px;
   font-weight: 600;
   color: rgba(0, 0, 0, 0.6);
@@ -215,6 +223,18 @@ const Button = styled.div`
   @media (max-width: 768px) {
     height: 30px;
     font-size: 12px;
+  }
+`;
+const EmptyMessage = styled.div`
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  justify-content: center;
+  padding: 50px;
+  img {
+    height: 60px;
+    width: 60px;
+    margin: 12px;
   }
 `;
 
