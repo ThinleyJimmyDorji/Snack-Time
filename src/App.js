@@ -7,6 +7,7 @@ import Details from "./components/Details";
 import Brew from "./components/Brew";
 import Sweets from "./components/Sweets";
 import Checkout from "./components/Checkout";
+import ReviewModal from "./components/ReviewModal";
 
 function App() {
   return (

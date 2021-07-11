@@ -1,10 +1,11 @@
 import React from "react";
 import styled from "styled-components";
-import { BsHeartFill, BsStar, BsStarFill, BsStarHalf } from "react-icons/bs";
+import { BsStarFill } from "react-icons/bs";
 import { IconContext } from "react-icons";
 import { useDispatch, useSelector } from "react-redux";
 import { decrement, increment } from "../redux/counterSlice";
 import { useState, useEffect } from "react";
+import ReviewModal from "./ReviewModal";
 import { useParams } from "react-router-dom"; // helpful in getting id
 import db from "../firebase";
 
@@ -13,7 +14,24 @@ function Details() {
   const dispatch = useDispatch();
   const { id } = useParams();
   const [detailData, setDetailData] = useState({}); //set a variable 'detail' whose value will bet set by 'setDetailData' func. Start with empty set(empty detail)
+  const [showModal, setShowModal] = useState("close");
 
+  const handleClick = (e) => {
+    e.preventDefault();
+    if (e.target != e.currentTarget) {
+      return;
+    }
+    switch (showModal) {
+      case "open":
+        setShowModal("close");
+        break;
+      case "close":
+        setShowModal("open");
+        break;
+      default:
+        setShowModal("close");
+    }
+  };
   useEffect(() => {
     db.collection("snacks")
       .doc(id)
@@ -36,9 +54,12 @@ function Details() {
     >
       <Container>
         <Content>
-          <ItemImage>
-            <img src={detailData.image} alt={detailData.name} />
-          </ItemImage>
+          <div class="item-action">
+            <ItemImage>
+              <img src={detailData.image} alt={detailData.name} />
+            </ItemImage>
+          </div>
+
           <DetailsBox>
             <ItemName>
               <span>{detailData.name}</span>
@@ -61,7 +82,7 @@ function Details() {
             <ItemPrice>
               <h2> Nu {detailData.price} </h2>&nbsp;
             </ItemPrice>
-            <Quantity>Minimim Quantity: 2</Quantity>
+
             <OrderDetails>
               <Operations>
                 <Decrement
@@ -92,6 +113,9 @@ function Details() {
             </Description>
           </DetailsBox>
         </Content>
+        <ReviewBox>
+          <ReviewModal />
+        </ReviewBox>
       </Container>
     </IconContext.Provider>
   );
@@ -101,13 +125,18 @@ const Container = styled.div`
   min-height: calc(100vh - 70px);
   padding: 100px calc(3.5vw + 5px);
   overflow-x: hidden;
+  display: flex;
+  flex-direction: column;
 `;
 const Content = styled.div`
   padding-top: 30px;
   margin-left: 30px;
   margin-bottom: 30px;
   display: flex;
-
+  .item-action {
+    display: flex;
+    flex-direction: column;
+  }
   @media (max-width: 768px) {
     display: flex;
     flex-direction: column;
@@ -116,11 +145,14 @@ const Content = styled.div`
 const ItemImage = styled.div`
   border: 3px solid rgba(0, 0, 0, 0.2);
   border-radius: 10px;
-  box-shadow: rgb(0 0 0 /69%) 0px 26px 30px -10px,
-    rgb(0 0 0 /73%) 0px 16px 10px -10px;
+  // box-shadow: rgb(0 0 0 /69%) 0px 26px 30px -10px,
+  //   rgb(0 0 0 /73%) 0px 16px 10px -10px;
   cursor: pointer;
   transition: all 250ms cubic-bezier(0.25, 0.46, 0.45, 0.94) 0s;
   border-radius: 4px;
+  height: 350px;
+  width: 600px;
+  max-height: 400px;
 
   img {
     width: 100%;
@@ -154,6 +186,11 @@ const RatingBox = styled.div`
   align-items: center;
   margin: 20px 0px;
 `;
+const ReviewBox = styled.div`
+  width: 100%;
+  display: flex;
+  margin-left: 0px;
+`;
 const Stars = styled.div`
   display: flex;
   letter-spacing: 1px;
@@ -165,6 +202,33 @@ const RatingCount = styled.div`
   letter-spacing: 1px;
   @media (max-width: 768px) {
     font-size: 12px;
+  }
+`;
+
+const WriteReview = styled.div`
+  background-color: rgba(112, 76, 182, 0.1);
+  width: 150px;
+  height: 35px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.15s;
+  margin: 0px 10px;
+  margin-left: 50px;
+  span {
+    font-size: 12px;
+    color: rgb(112, 76, 182);
+    letter-spacing: 1px;
+  }
+  &:hover,
+  &:focus {
+    border: 1px solid rgba(112, 76, 182, 0.5);
+  }
+
+  &:active {
+    background-color: rgba(112, 76, 182, 0.2);
   }
 `;
 

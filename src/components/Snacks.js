@@ -28,7 +28,7 @@ const Snacks = (props) => {
   };
 
   return (
-    <Container id = "snacks">
+    <Container id="snacks">
       <SnackHeading>Snacks</SnackHeading>
       <Content>
         {snacks &&
@@ -39,7 +39,11 @@ const Snacks = (props) => {
                 <img src={snack.image} alt={snack.name} />
               </Link>
               <ItemName>{snack.name}</ItemName>
-              <ItemPrice> <span>Nu. </span>{snack.price}</ItemPrice>
+              <ItemPrice>
+                {" "}
+                <span>Nu. </span>
+                {snack.price}
+              </ItemPrice>
 
               <Operations>
                 <AddButton
@@ -113,8 +117,8 @@ const Content = styled.div`
 const Wrap = styled.div`
   border: 3px solid rgba(249, 249, 249, 0.1);
   border-radius: 10px;
-  box-shadow: rgb(0 0 0 /69%) 0px 26px 30px -10px,
-    rgb(0 0 0 /73%) 0px 16px 10px -10px;
+  // box-shadow: rgb(0 0 0 /69%) 0px 26px 30px -10px,
+  //   rgb(0 0 0 /73%) 0px 16px 10px -10px;
   overflow: hidden;
   align-items: center;
   justify-content: center;
