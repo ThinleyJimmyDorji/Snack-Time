@@ -79,7 +79,7 @@ function Header() {
   return (
     <IconContext.Provider value={{ color: "#3c096c", size: "1.5em" }}>
       <Nav>
-        <Link tot="/home">
+        <Link to="/home">
           <LogoWrapper>
             <Logo src="/images/logo.svg" />
           </LogoWrapper>
