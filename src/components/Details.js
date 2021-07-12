@@ -15,6 +15,7 @@ import {
   selectUserPhoto,
   selectUserEmail,
 } from "../redux/userSlice";
+import { setCartSnacks } from "../redux/orderSlice";
 
 function Details() {
   const { count } = useSelector((state) => state.counter);
@@ -26,6 +27,24 @@ function Details() {
   const userPhoto = useSelector(selectUserPhoto);
   const userEmail = useSelector(selectUserEmail);
   const [reviewData, setReviewData] = useState([]);
+
+  const setCartItem = (id, name, category, image, reviews, price, count) => {
+    for (let i = 1; i <= count; i++) {
+      dispatch(
+        setCartSnacks({
+          type: "ADD_TO_CART",
+          item: {
+            id: id,
+            name: name,
+            category: category,
+            image: image,
+            reviews: reviews,
+            price: price,
+          },
+        })
+      );
+    }
+  };
 
   useEffect(() => {
     if (userName) {
@@ -99,7 +118,7 @@ function Details() {
             <OrderDetails>
               <Operations>
                 <Decrement
-                  disabled={!count ? true : false}
+                  disabled={count === 1 ? true : false}
                   count
                   onClick={() => dispatch(decrement())}
                 >
@@ -110,7 +129,19 @@ function Details() {
                   <span>+</span>
                 </Increment>
               </Operations>
-              <TrayBox>
+              <TrayBox
+                onClick={() => {
+                  setCartItem(
+                    detailData.id,
+                    detailData.name,
+                    detailData.category,
+                    detailData.image,
+                    detailData.reviews,
+                    detailData.price,
+                    count
+                  );
+                }}
+              >
                 <span>Add to Tray</span>
               </TrayBox>
             </OrderDetails>

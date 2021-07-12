@@ -29,6 +29,8 @@ function ReviewModal(props) {
 
   const reset = (e) => {
     setEditorText("");
+    setRating(0);
+
     // props.handleClick(e);
   };
 
@@ -95,6 +97,10 @@ function ReviewModal(props) {
     </Container>
   );
 }
+
+// background: ${(props) => (props.disabled ? "rgba(0,0,0,0.4)" : "#0a66c2")};
+// color: ${(props) => (props.disabled ? "rgba(1,1,1,0.2)" : "white")};
+
 const Container = styled.div`
   width: 100%;
   margin-bottom: 80px;
@@ -207,18 +213,22 @@ const ShareCreation = styled.div`
   justify-content: space-between;
   padding: 12px 24px 12px 16px;
 `;
-const PostButton = styled.div`
-  background-color: rgba(112, 76, 182, 0.1);
+const PostButton = styled.button`
   width: 150px;
   height: 35px;
   display: flex;
+  border: none;
   align-items: center;
   justify-content: center;
   border-radius: 4px;
-  cursor: pointer;
+  cursor: ${(props) => (props.disabled ? "not-allowed" : "pointer")};
   transition: all 0.15s;
   margin: 0px 10px;
   margin-left: 50px;
+  background: ${(props) =>
+    props.disabled ? "rgba(0,0,0,0.4)" : "rgba(112, 76, 182, 0.1)"};
+  color: ${(props) => (props.disabled ? "white" : "rgb(112, 76, 182)")};
+
   span {
     font-size: 12px;
     color: rgb(112, 76, 182);

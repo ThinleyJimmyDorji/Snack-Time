@@ -31,7 +31,7 @@ function Subtotal() {
       />
 
       <CheckoutButton disabled={items.length != 0 ? false : true}>
-        <span>Proceed to Checkout</span>
+        <span>Order</span>
       </CheckoutButton>
     </Component>
   );
@@ -56,7 +56,8 @@ const Component = styled.div`
     }
   }
 `;
-const CheckoutButton = styled.div`
+const CheckoutButton = styled.button`
+  border: none;
   background-color: rgba(112, 76, 182, 0.1);
   width: 80%;
   height: 40px;
@@ -64,7 +65,7 @@ const CheckoutButton = styled.div`
   align-items: center;
   justify-content: center;
   border-radius: 4px;
-  cursor: pointer;
+  cursor: ${(props) => (props.disabled ? "not-allowed" : "pointer")};
   transition: all 0.15s;
   margin: 30px 5px 0px 0px;
   span {
