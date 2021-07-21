@@ -163,7 +163,7 @@ function Details() {
         <TopReviews>
           <Heading>Top Reviews</Heading>
           <>
-            {detailData.length != 0 ? (
+            {detailData?.length != 0 ? (
               <DisplayReview>
                 {reviewData &&
                   reviewData?.map((detail, key) => (
@@ -224,7 +224,7 @@ const Wrap = styled.div`
     margin-left: 10px;
   }
   .image {
-    border-raduis: 50px;
+    border-radius: 50px;
     img {
       width: 27px;
       height: 27px;
