@@ -15,7 +15,7 @@ export const orderSlice = createSlice({
   initialState,
   reducers: {
     setCartSnacks: (state, action) => {
-      console.log(action);
+      //console.log(action);
       switch (action.payload.type) {
         case "ADD_TO_CART":
           return { ...state, tray: [...state.tray, action.payload.item] }; // return whatever is there in the tray, as well as the new item

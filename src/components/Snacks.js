@@ -14,6 +14,7 @@ const Snacks = (props) => {
   const setCartItem = (id, name, category, image, reviews, price) => {
     dispatch(
       setCartSnacks({
+        //reducer in snackSlice
         type: "ADD_TO_CART",
         item: {
           id: id,

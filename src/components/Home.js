@@ -35,14 +35,14 @@ function Home() {
       });
 
       dispatch(
-        setSnacks({
+        setSnacks({   // reducer in snackSlice
           snacks: snack_items,
           brew: brew_items,
           sweets: sweets_items,
         })
       );
     });
-  }, []); // grab the data from firestore when the user logs in
+  }, []);
   return (
     <Container>
       <Viewers />
