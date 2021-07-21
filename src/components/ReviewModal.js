@@ -36,9 +36,7 @@ function ReviewModal(props) {
 
   const postReview = (e) => {
     e.preventDefault();
-    if (e.target !== e.currentTarget) {
-      return;
-    }
+
     const payload = {
       itemId: props.data.id,
       user: props.data.actor,
