@@ -1,18 +1,71 @@
 import React from "react";
 import styled from "styled-components";
-import { BsHeartFill, BsStar, BsStarFill, BsStarHalf } from "react-icons/bs";
+import { BsStarFill } from "react-icons/bs";
 import { IconContext } from "react-icons";
 import { useDispatch, useSelector } from "react-redux";
 import { decrement, increment } from "../redux/counterSlice";
 import { useState, useEffect } from "react";
+import ReviewModal from "./ReviewModal";
 import { useParams } from "react-router-dom"; // helpful in getting id
 import db from "../firebase";
+import moment from "moment";
+//redux store
+import {
+  selectUserName,
+  selectUserPhoto,
+  selectUserEmail,
+} from "../redux/userSlice";
+import { setCartSnacks } from "../redux/orderSlice";
 
 function Details() {
   const { count } = useSelector((state) => state.counter);
   const dispatch = useDispatch();
   const { id } = useParams();
   const [detailData, setDetailData] = useState({}); //set a variable 'detail' whose value will bet set by 'setDetailData' func. Start with empty set(empty detail)
+
+  const userName = useSelector(selectUserName);
+  const userPhoto = useSelector(selectUserPhoto);
+  const userEmail = useSelector(selectUserEmail);
+  const [reviewData, setReviewData] = useState([]);
+
+  const setCartItem = (id, name, category, image, reviews, price, count) => {
+    for (let i = 1; i <= count; i++) {
+      dispatch(
+        setCartSnacks({
+          type: "ADD_TO_CART",
+          item: {
+            id: id,
+            name: name,
+            category: category,
+            image: image,
+            reviews: reviews,
+            price: price,
+          },
+        })
+      );
+    }
+  };
+
+  useEffect(() => {
+    if (userName) {
+      db.collection("snacks")
+        .doc(id)
+        .collection("reviews")
+        .orderBy("timestamp", "desc")
+        .onSnapshot((snapshot) =>
+          setReviewData(
+            snapshot.docs.map((doc) => ({
+              id: doc.id,
+              data: doc.data(),
+            }))
+          )
+        );
+    } else {
+      setReviewData([]);
+    }
+  }, [id]);
+
+  console.log(reviewData);
 
   useEffect(() => {
     db.collection("snacks")
@@ -29,41 +82,46 @@ function Details() {
         console.log("error fetching the document:", error);
       });
   }, [id]);
+
+  const data = {
+    id: id,
+    actor: {
+      userName: userName,
+      userEmail: userEmail,
+      userPhoto: userPhoto,
+    },
+    itemDetails: detailData,
+  };
+
   return (
     <IconContext.Provider
-      value={{ color: "#2a98b9", margin: "2em", size: "1.5em" }}
+      value={{ color: "#00bf88", margin: "2em", size: "0.8em" }}
     >
       <Container>
         <Content>
           <ItemImage>
             <img src={detailData.image} alt={detailData.name} />
           </ItemImage>
+
           <DetailsBox>
             <ItemName>
               <span>{detailData.name}</span>
             </ItemName>
             <RatingBox>
-              <Stars>
-                <BsStarFill />
-                &nbsp; &nbsp;
-                <BsStarFill />
-                &nbsp; &nbsp;
-                <BsStarFill />
-                &nbsp; &nbsp;
-                <BsStarFill />
-                &nbsp; &nbsp;
-                <BsStarFill />
-                &nbsp;
-              </Stars>
-              <RatingCount>{detailData.reviews} reviews</RatingCount>
+              <RatingCount>{reviewData.length} reviews</RatingCount>
             </RatingBox>
             <ItemPrice>
-              <h2> Nu {detailData.price} </h2>&nbsp;
+              <span> Nu. </span>
+              <strong>{detailData.price}</strong>
             </ItemPrice>
-            <Quantity>Minimim Quantity: 2</Quantity>
+
             <OrderDetails>
               <Operations>
-                <Decrement onClick={() => dispatch(decrement())}>
+                <Decrement
+                  disabled={count === 1 ? true : false}
+                  count
+                  onClick={() => dispatch(decrement())}
+                >
                   <span>-</span>
                 </Decrement>
                 <OrderCount>{count}</OrderCount>
@@ -71,7 +129,19 @@ function Details() {
                   <span>+</span>
                 </Increment>
               </Operations>
-              <TrayBox>
+              <TrayBox
+                onClick={() => {
+                  setCartItem(
+                    detailData.id,
+                    detailData.name,
+                    detailData.category,
+                    detailData.image,
+                    detailData.reviews,
+                    detailData.price,
+                    count
+                  );
+                }}
+              >
                 <span>Add to Tray</span>
               </TrayBox>
             </OrderDetails>
@@ -87,22 +157,112 @@ function Details() {
             </Description>
           </DetailsBox>
         </Content>
+        <ReviewBox>
+          <ReviewModal data={data} />
+        </ReviewBox>
+        <TopReviews>
+          <Heading>Top Reviews</Heading>
+          <>
+            {detailData.length != 0 ? (
+              <DisplayReview>
+                {reviewData &&
+                  reviewData?.map((detail, key) => (
+                    <Wrap key={key}>
+                      <div class="wrapper">
+                        <div class="image">
+                          <img src={detail.data.actor.userPhoto} alt="" />
+                        </div>
+                        <div class="name">{detail.data.actor.userName}</div>
+                        <div class="date">
+                          {detail.data.timestamp.toDate().toLocaleDateString()}
+                        </div>
+                      </div>
+                      <div class="stars">
+                        {" "}
+                        {Array(detail.data.rating)
+                          .fill()
+                          .map((_, i) => (
+                            <BsStarFill />
+                          ))}
+                      </div>
+                      <div class="reviews">{detail.data.review}</div>
+                    </Wrap>
+                  ))}
+              </DisplayReview>
+            ) : (
+              <span>No reviews. Write one</span>
+            )}
+          </>
+        </TopReviews>
       </Container>
     </IconContext.Provider>
   );
 }
 
+const DisplayReview = styled.div`
+  height: 100%;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+`;
+const Wrap = styled.div`
+  height: 100%;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  margin-top: 40px;
+
+  padding-left: 6px;
+  border-left: 4px solid #2a98b9;
+  .wrapper {
+    display: flex;
+  }
+  .name {
+    display: flex;
+    flex: 1;
+
+    margin-left: 10px;
+  }
+  .image {
+    border-raduis: 50px;
+    img {
+      width: 27px;
+      height: 27px;
+      border-radius: 50%;
+    }
+  }
+  .reviews {
+    width: 100%;
+    margin-top: 20px;
+    font-size: 14px;
+  }
+`;
+const TopReviews = styled.div`
+  width: 50%;
+  height: 100px;
+  margin-bottom: 200px;
+  @media (max-width: 768px) {
+    width: 100%;
+  }
+`;
+const Heading = styled.div``;
+
 const Container = styled.div`
   min-height: calc(100vh - 70px);
   padding: 100px calc(3.5vw + 5px);
   overflow-x: hidden;
+  display: flex;
+  flex-direction: column;
 `;
 const Content = styled.div`
   padding-top: 30px;
   margin-left: 30px;
   margin-bottom: 30px;
   display: flex;
-
+  .item-action {
+    display: flex;
+    flex-direction: column;
+  }
   @media (max-width: 768px) {
     display: flex;
     flex-direction: column;
@@ -111,11 +271,14 @@ const Content = styled.div`
 const ItemImage = styled.div`
   border: 3px solid rgba(0, 0, 0, 0.2);
   border-radius: 10px;
-  box-shadow: rgb(0 0 0 /69%) 0px 26px 30px -10px,
-    rgb(0 0 0 /73%) 0px 16px 10px -10px;
+  // box-shadow: rgb(0 0 0 /69%) 0px 26px 30px -10px,
+  //   rgb(0 0 0 /73%) 0px 16px 10px -10px;
   cursor: pointer;
   transition: all 250ms cubic-bezier(0.25, 0.46, 0.45, 0.94) 0s;
   border-radius: 4px;
+  height: 350px;
+  width: 100%;
+  max-height: 400px;
 
   img {
     width: 100%;
@@ -149,6 +312,11 @@ const RatingBox = styled.div`
   align-items: center;
   margin: 20px 0px;
 `;
+const ReviewBox = styled.div`
+  width: 100%;
+  display: flex;
+  margin-left: 0px;
+`;
 const Stars = styled.div`
   display: flex;
   letter-spacing: 1px;
@@ -160,6 +328,33 @@ const RatingCount = styled.div`
   letter-spacing: 1px;
   @media (max-width: 768px) {
     font-size: 12px;
+  }
+`;
+
+const WriteReview = styled.div`
+  background-color: rgba(112, 76, 182, 0.1);
+  width: 150px;
+  height: 35px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.15s;
+  margin: 0px 10px;
+  margin-left: 50px;
+  span {
+    font-size: 12px;
+    color: rgb(112, 76, 182);
+    letter-spacing: 1px;
+  }
+  &:hover,
+  &:focus {
+    border: 1px solid rgba(112, 76, 182, 0.5);
+  }
+
+  &:active {
+    background-color: rgba(112, 76, 182, 0.2);
   }
 `;
 

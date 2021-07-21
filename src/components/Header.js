@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import styled from "styled-components";
 import { IconContext } from "react-icons";
 import { useDispatch, useSelector } from "react-redux";
@@ -34,6 +34,7 @@ function Header() {
 
   // const history = useHistory();
   const dispatch = useDispatch();
+  const history = useHistory();
   const userName = useSelector(selectUserName);
   const userPhoto = useSelector(selectUserPhoto);
   useEffect(() => {
@@ -77,9 +78,11 @@ function Header() {
   return (
     <IconContext.Provider value={{ color: "#3c096c", size: "1.5em" }}>
       <Nav>
-        <LogoWrapper>
-          <Logo src="/images/logo.svg" />
-        </LogoWrapper>
+        <Link to="/home">
+          <LogoWrapper>
+            <Logo src="/images/logo.svg" />
+          </LogoWrapper>
+        </Link>
 
         <NavMenu>
           <a>
@@ -92,11 +95,9 @@ function Header() {
             <span>Offers</span>
           </a>
         </NavMenu>
-        
-          <PostContainer>
-            <span>Add a Snack</span>
-          </PostContainer>
-        
+
+        <div class="space"></div>
+
         <Divider></Divider>
         {!userName ? (
           <LoginContainer onClick={signIn}>
@@ -180,6 +181,10 @@ const Nav = styled.nav`
   /* border-bottom: 1px solid rgba(0, 0, 0, 0.1); */
   box-shadow: rgb(0 0 0 /69%) 0px 4px 10px -10px,
     rgb(0 0 0 /73%) 0px 6px 8px -10px;
+
+  .space {
+    flex: 1;
+  }
 `;
 
 const LogoWrapper = styled.div`
@@ -224,6 +229,10 @@ const NavMenu = styled.div`
   align-items: center;
   padding: 8px 8px;
   margin-right: 8px;
+
+  @media (max-width: 768px) {
+    display: none;
+  }
 
   a {
     display: flex;

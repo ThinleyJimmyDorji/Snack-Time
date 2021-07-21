@@ -8,8 +8,8 @@ import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import db from "../firebase";
 import { setSnacks } from "../redux/snackSlice";
-import { selectUserName } from "../redux/userSlice";
-
+import { animateScroll as scroll } from "react-scroll";
+import { IoChevronUpCircle } from "react-icons/io5";
 function Home() {
   const dispatch = useDispatch();
   // const userName = useSelector(selectUserName);
@@ -49,6 +49,16 @@ function Home() {
       <Snacks />
       <Brew />
       <Sweets />
+      <ScrollToTop
+        onClick={() => {
+          scroll.scrollToTop();
+        }}
+      >
+        <div class="empty-div"></div>
+        <div class="icon-wrapper">
+          <IoChevronUpCircle class="up-arrow" size="2.5em" />
+        </div>
+      </ScrollToTop>
     </Container>
   );
 }
@@ -56,6 +66,8 @@ function Home() {
 const Container = styled.div`
   min-height: calc(100vh - 70px);
   padding: 0 calc(3.5vw + 5px);
+  padding-bottom: 80px;
+  margin-bottom: 100px;
   /* position: relative; */
   overflow-x: hidden;
 
@@ -69,5 +81,29 @@ const Container = styled.div`
     z-index: -1; // send the background of all the content
     position: absolute; // fix the position of the background image
   } */
+`;
+const ScrollToTop = styled.div`
+  height: 20px;
+  width: 100%;
+  display: flex;
+  flex: 1;
+  align-items: flex-end;
+
+  .empty-div {
+    flex: 1;
+  }
+  .icon-wrapper {
+    height: 40px;
+    width: 40px;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    box-shadow: rgb(0 0 0 /69%) 0px 26px 30px -10px,
+      rgb(0 0 0 /73%) 0px 16px 10px -10px;
+    cursor: pointer;
+  }
+  .up-arrow {
+    color: rgba(112, 76, 182, 0.5);
+  }
 `;
 export default Home;

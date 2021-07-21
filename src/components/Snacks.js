@@ -29,39 +29,52 @@ const Snacks = (props) => {
   };
 
   return (
-    <Container>
-      <SnackHeading>Snacks</SnackHeading>
-      <Content>
-        {snacks &&
-          snacks.map((snack, key) => (
-            <Wrap key={key}>
-              {/* {snack.id} */}
-              <Link to={`/detail/` + snack.id}>
-                <img src={snack.image} alt={snack.name} />
-              </Link>
-              <ItemName>{snack.name}</ItemName>
-              <ItemPrice>{snack.price}</ItemPrice>
+    <>
+      {snacks?.length != 0 ? (
+        <Container id="snacks">
+          <SnackHeading>Snacks</SnackHeading>
+          <Content>
+            {snacks &&
+              snacks.map((snack, key) => (
+                <Wrap key={key}>
+                  {/* {snack.id} */}
+                  <Link to={`/detail/` + snack.id}>
+                    <img src={snack.image} alt={snack.name} />
+                  </Link>
+                  <ItemName>{snack.name}</ItemName>
+                  <ItemPrice>
+                    {" "}
+                    <span>Nu. </span>
+                    {snack.price}
+                  </ItemPrice>
 
-              <Operations>
-                <AddButton
-                  onClick={() => {
-                    setCartItem(
-                      snack.id,
-                      snack.name,
-                      snack.category,
-                      snack.image,
-                      snack.reviews,
-                      snack.price
-                    );
-                  }}
-                >
-                  <span>Select</span>
-                </AddButton>
-              </Operations>
-            </Wrap>
-          ))}
-      </Content>
-    </Container>
+                  <Operations>
+                    <AddButton
+                      onClick={() => {
+                        setCartItem(
+                          snack.id,
+                          snack.name,
+                          snack.category,
+                          snack.image,
+                          snack.reviews,
+                          snack.price
+                        );
+                      }}
+                    >
+                      <span>Select</span>
+                    </AddButton>
+                  </Operations>
+                </Wrap>
+              ))}
+          </Content>
+        </Container>
+      ) : (
+        <EmptyMessage>
+          <img src="https://img.icons8.com/ultraviolet/40/000000/sad.png" />
+          <span>Sorry! No snacks in the collection</span>
+        </EmptyMessage>
+      )}
+    </>
   );
 };
 
@@ -114,8 +127,8 @@ const Content = styled.div`
 const Wrap = styled.div`
   border: 3px solid rgba(249, 249, 249, 0.1);
   border-radius: 10px;
-  box-shadow: rgb(0 0 0 /69%) 0px 26px 30px -10px,
-    rgb(0 0 0 /73%) 0px 16px 10px -10px;
+  // box-shadow: rgb(0 0 0 /69%) 0px 26px 30px -10px,
+  //   rgb(0 0 0 /73%) 0px 16px 10px -10px;
   overflow: hidden;
   align-items: center;
   justify-content: center;
@@ -223,6 +236,18 @@ const ItemPrice = styled.div`
   margin-top: 10px;
   @media (max-width: 768px) {
     font-size: 10px;
+  }
+`;
+const EmptyMessage = styled.div`
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  justify-content: center;
+  padding: 50px;
+  img {
+    height: 30px;
+    width: 30px;
+    margin: 12px;
   }
 `;
 export {

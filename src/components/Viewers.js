@@ -1,19 +1,45 @@
 import React from "react";
 import styled from "styled-components";
+import { Link, animateScroll } from "react-scroll";
+
 function Viewers() {
   return (
     <Container>
       <Categories>Categories</Categories>
       <Content>
-        <Wrap>
-          <img src="/images/chinese-momo.jpg" alt="" />
-        </Wrap>
-        <Wrap>
-          <img src="/images/omelete.jpg" alt="" />
-        </Wrap>
-        <Wrap>
-          <img src="/images/pasta-with-tomato.jpg" alt="" />
-        </Wrap>
+        <Link to="snacks" smooth={true} duration={500}>
+          <Wrap>
+            <img
+              src="https://images.pexels.com/photos/1103909/pexels-photo-1103909.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500"
+              alt=""
+            />
+            <div class="name-wrapper">
+              <span>Snacks</span>
+            </div>
+          </Wrap>
+        </Link>
+        <Link to="brew" smooth={true} duration={1000}>
+          <Wrap>
+            <img
+              src="https://images.pexels.com/photos/6347/coffee-cup-working-happy.jpg?auto=compress&cs=tinysrgb&dpr=1&w=500"
+              alt=""
+            />
+            <div class="name-wrapper">
+              <span>Brews</span>
+            </div>
+          </Wrap>
+        </Link>
+        <Link to="sweets" smooth={true} duration={1000}>
+          <Wrap>
+            <img
+              src="https://images.pexels.com/photos/1070850/pexels-photo-1070850.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500"
+              alt=""
+            />
+            <div class="name-wrapper">
+              <span>Sweets</span>
+            </div>
+          </Wrap>
+        </Link>
       </Content>
     </Container>
   );
@@ -56,6 +82,17 @@ const Wrap = styled.div`
   cursor: pointer;
   transition: all 250ms cubic-bezier(0.25, 0.46, 0.45, 0.94) 0s;
 
+  .name-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    span {
+      font-size: 14px;
+      color: rgb(112, 76, 182);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+  }
   &:hover {
     transform: scale(1.05);
     border-color: rgba(249, 349, 349, 0.8);

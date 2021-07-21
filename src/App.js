@@ -2,12 +2,11 @@ import React from "react";
 import "./App.css";
 import Header from "./components/Header";
 import Home from "./components/Home";
-import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import Details from "./components/Details";
 import Brew from "./components/Brew";
 import Sweets from "./components/Sweets";
 import Checkout from "./components/Checkout";
-import Adminpage from "./components/Adminpage";
 
 function App() {
   return (
@@ -16,9 +15,6 @@ function App() {
       <Router>
         <Header />
         <Switch>
-          {/* <Route path="/adminpage">
-            <Adminpage />
-          </Route> */}
           <Route path="/checkout">
             <Checkout />
           </Route>
