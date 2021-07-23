@@ -4,15 +4,37 @@ import { useDispatch, useSelector } from "react-redux";
 import { selectCartSnacks, setCartSnacks } from "../redux/orderSlice";
 import { Link } from "react-router-dom";
 import Subtotal from "./Subtotal";
+import { ContactSupportRounded } from "@material-ui/icons";
 function Checkout() {
   const items = useSelector(selectCartSnacks);
   const dispatch = useDispatch();
+  const uniqueId = [];
+  const distinctItem = [];
 
-  // let subTotal = 0;
-  // for (var item = 0; item <= items.length; item++) {
-  //   subTotal = subTotal + item.price;
-  // }
-  // console.log(subTotal);
+
+
+  // group all the same items together and displaying as a group
+  items.forEach((item, index, items) => {
+    console.log('id:', item.id)
+    if (!uniqueId?.includes(item.id)) {
+      uniqueId.push(item.id)
+
+      let newItem = {
+        snack: item,
+        count: 1,
+      };
+      distinctItem.push(newItem);
+    } else {
+      // console.log('unique:', uniqueId)
+      distinctItem.forEach((element,index) =>{
+        if(element.snack.id === item.id){
+          element.count += 1
+        }
+      })
+    }
+  });
+  // console.log(distinctItem);
+
 
   const removeCartItem = (id) => {
     dispatch(
@@ -28,31 +50,26 @@ function Checkout() {
         <CheckoutLeft>
           <Heading> Your Order Tray</Heading>
 
-          {items.length != 0 ? (
-            items.map((item, key) => (
+          {distinctItem?.length != 0 ? (
+            distinctItem.map((item, key) => (
               <BasketList key={key}>
                 <ImageContainer>
-                  <Link to={`/detail/` + item.id}>
-                    <img src={item.image} alt={item.name} />
-                  </Link>
+                  
+                    <img src={item.snack.image} alt={item.snack.name} />
+                  
                 </ImageContainer>
 
                 <Info>
-                  <Title>{item.name}</Title>
+                  <Title>{item.snack.name}</Title>
+                  <span><strong>{item.count}</strong> no(s)</span>
                   <Price>
                     <span>Nu </span>
-                    <strong>{item.price}</strong>
+                    <strong>{item.snack.price}</strong>
                   </Price>
-                  <Rating>
-                    {/* {Array(item.ratings)
-                    .fill()
-                    .map((_, i) => (
-                        <p>🌟</p>
-                    ))} */}
-                  </Rating>
+
                   <Button
                     onClick={() => {
-                      removeCartItem(item.id);
+                      removeCartItem(item.snack.id);
                     }}
                   >
                     <span>Remove</span>

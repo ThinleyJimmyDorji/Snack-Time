@@ -21,7 +21,7 @@ function Details() {
   const { count } = useSelector((state) => state.counter);
   const dispatch = useDispatch();
   const { id } = useParams();
-  const [detailData, setDetailData] = useState({}); //set a variable 'detail' whose value will bet set by 'setDetailData' func. Start with empty set(empty detail)
+  const [detailData, setDetailData] = useState([]); //set a variable 'detail' whose value will bet set by 'setDetailData' func. Start with empty set(empty detail)
 
   const userName = useSelector(selectUserName);
   const userPhoto = useSelector(selectUserPhoto);
@@ -65,7 +65,7 @@ function Details() {
     }
   }, [id]);
 
-  console.log(reviewData);
+  // console.log(reviewData);
 
   useEffect(() => {
     db.collection("snacks")
@@ -94,6 +94,7 @@ function Details() {
   };
 
   return (
+    
     <IconContext.Provider
       value={{ color: "#00bf88", margin: "2em", size: "0.8em" }}
     >
@@ -132,7 +133,7 @@ function Details() {
               <TrayBox
                 onClick={() => {
                   setCartItem(
-                    detailData.id,
+                    id,
                     detailData.name,
                     detailData.category,
                     detailData.image,
