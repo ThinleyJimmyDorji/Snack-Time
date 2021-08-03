@@ -2,22 +2,18 @@ import React from "react";
 import styled from "styled-components";
 import { useDispatch, useSelector } from "react-redux";
 import { selectCartSnacks, setCartSnacks } from "../redux/orderSlice";
-import { Link } from "react-router-dom";
 import Subtotal from "./Subtotal";
-import { ContactSupportRounded } from "@material-ui/icons";
 function Checkout() {
   const items = useSelector(selectCartSnacks);
   const dispatch = useDispatch();
   const uniqueId = [];
   const distinctItem = [];
 
-
-
   // group all the same items together and displaying as a group
   items.forEach((item, index, items) => {
-    console.log('id:', item.id)
+    console.log("id:", item.id);
     if (!uniqueId?.includes(item.id)) {
-      uniqueId.push(item.id)
+      uniqueId.push(item.id);
 
       let newItem = {
         snack: item,
@@ -26,15 +22,14 @@ function Checkout() {
       distinctItem.push(newItem);
     } else {
       // console.log('unique:', uniqueId)
-      distinctItem.forEach((element,index) =>{
-        if(element.snack.id === item.id){
-          element.count += 1
+      distinctItem.forEach((element, index) => {
+        if (element.snack.id === item.id) {
+          element.count += 1;
         }
-      })
+      });
     }
   });
   // console.log(distinctItem);
-
 
   const removeCartItem = (id) => {
     dispatch(
@@ -54,14 +49,14 @@ function Checkout() {
             distinctItem.map((item, key) => (
               <BasketList key={key}>
                 <ImageContainer>
-                  
-                    <img src={item.snack.image} alt={item.snack.name} />
-                  
+                  <img src={item.snack.image} alt={item.snack.name} />
                 </ImageContainer>
 
                 <Info>
                   <Title>{item.snack.name}</Title>
-                  <span><strong>{item.count}</strong> no(s)</span>
+                  <span>
+                    <strong>{item.count}</strong> no(s)
+                  </span>
                   <Price>
                     <span>Nu </span>
                     <strong>{item.snack.price}</strong>
